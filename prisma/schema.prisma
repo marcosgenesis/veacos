@@ -68,6 +68,7 @@ model VerificationToken {
 
 model Bill {
     id          String        @id @default(cuid())
+    title       String
     debtor      String
     installment Installment[]
 
@@ -82,7 +83,7 @@ model Installment {
     id    String   @id @default(cuid())
     value Float    @default(0)
     date  DateTime @default(now())
-
+    payed Boolean  @default(false)
     created_at DateTime @default(now())
     updated_at DateTime @default(now())
 
