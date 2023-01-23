@@ -2,18 +2,20 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { RiAddLine, RiSubtractLine } from "react-icons/ri";
-import { api } from "../utils/api";
+import { api, RouterInputs } from "../utils/api";
+
+type Bill = RouterInputs["bill"]["createBill"]
 
 const Create: NextPage = () => {
   const { data: sessionData } = useSession();
   const createBill = api.bill.createBill.useMutation();
   const [qtdInstallments, setQtdInstallments] = useState(1);
-  const { register, handleSubmit } = useForm({});
+  const { register, handleSubmit } = useForm<Bill>();
   const router = useRouter();
 
-  async function handleCreateSubmit(date: any) {
+  const handleCreateSubmit:SubmitHandler<Bill> = async (date) =>{
     try {
       console.log(sessionData?.user);
 
@@ -22,6 +24,7 @@ const Create: NextPage = () => {
         qtdInstallments,
         value: parseFloat(date.value),
         user: sessionData?.user?.email,
+        title: date.title,
       });
       await router.push("/");
     } catch (error) {
@@ -40,6 +43,22 @@ const Create: NextPage = () => {
           Crie abaixo uma conta que algúem te deve, e faça o acompanhamento por
           aqui
         </p>
+        <div className="mt-4">
+          <label
+            for="title"
+            class="mb-2 block text-sm font-medium text-gray-900"
+          >
+            Nome da conta
+          </label>
+          <input
+            type="text"
+            id="title"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            placeholder="10 real da pinga"
+            required
+            {...register("title")}
+          />
+        </div>
         <div className="mt-4">
           <label
             for="debtor"

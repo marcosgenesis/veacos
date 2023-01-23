@@ -10,28 +10,51 @@ const Home: NextPage = () => {
   const { data: sessionData } = useSession();
   const bills = api.bill.getAllFromUser.useQuery();
   const deleteBill = api.bill.deleteBill.useMutation();
+  const payInstallment = api.bill.payInstallment.useMutation();
 
   async function handleDeleteBill(id: string) {
     try {
       await deleteBill.mutateAsync({ billId: id });
-      await bills.refetch()
+      await bills.refetch();
     } catch (error) {
       console.log(error);
     }
   }
 
+  async function handlePayInstallment(id: string) {
+    try {
+      await payInstallment.mutateAsync({ id });
+      await bills.refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <Head>
         <title>Quem me deve</title>
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <main className="mt-12 flex min-h-screen flex-col items-center">
         <div className="flex w-3/6 items-center justify-between ">
-          <div className="text-lg">{sessionData?.user?.name}</div>
-          <div>
-            <Link href="/create">Criar nova conta</Link>
+          <div className="flex items-center justify-center gap-2">
+            <img
+              src={sessionData?.user?.image}
+              alt="User profile"
+              className=" w-16 rounded-lg"
+            />
+            <div>
+              <p className=" text-lg">{sessionData?.user?.name}</p>
+              <p className="text-xs text-gray-400">
+                {sessionData?.user?.email}
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button className="h-10 rounded-xl bg-black px-8 py-2 text-white hover:bg-gray-800">
+              <Link href="/create">Criar nova conta</Link>
+            </button>
             <button
-              className="rounded-xl bg-black px-8 py-2 font-semibold text-white no-underline transition hover:bg-black/80"
+              className="rounded-xl bg-black px-8 py-2 font-semibold text-white no-underline transition hover:bg-gray-800"
               onClick={sessionData ? () => void signOut() : () => void signIn()}
             >
               {sessionData ? "Sair" : "Logar"}
@@ -39,6 +62,11 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="w-6/12">
+          {bills.data?.length === 0 && (
+            <p className="text-center text-black/30">
+              Nenhuma conta cadastrada
+            </p>
+          )}
           {bills.isSuccess &&
             bills.data.map((item) => (
               <div
@@ -46,7 +74,7 @@ const Home: NextPage = () => {
                 className="flex items-center rounded-md py-4 px-2"
               >
                 <div className="rounded-sm bg-slate-100 p-4">
-                  <p className="text-xl font-medium truncate">{item.debtor}</p>
+                  <p className="truncate text-xl font-medium">{item.debtor}</p>
                   <div className="flex gap-2">
                     <RiTimeLine />
                     <p className="text-xs">
@@ -58,7 +86,8 @@ const Home: NextPage = () => {
                   {item.installment.map((installment) => (
                     <div
                       key={installment.id}
-                      className="rounded-sm p-4 border-2 border-gray-100 cursor-pointer"
+                      className="cursor-pointer rounded-sm border-2 border-gray-100 p-4"
+                      onClick={() => handlePayInstallment(installment.id)}
                     >
                       <p className="text-xs text-black/40">
                         {installment.date.toLocaleDateString()}

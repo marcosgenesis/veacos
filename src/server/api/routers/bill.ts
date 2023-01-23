@@ -9,6 +9,7 @@ export const billRouter = createTRPCRouter({
     .input(
       z.object({
         user: z.string().email(),
+        title: z.string().min(3),
         debtor: z.string().min(3),
         value: z.number().nonnegative().gte(1),
         qtdInstallments: z.number().nonnegative().int(),
@@ -21,7 +22,11 @@ export const billRouter = createTRPCRouter({
       });
       if (findUser) {
         const bill = await ctx.prisma.bill.create({
-          data: { debtor: input.debtor, userId: findUser.id },
+          data: {
+            debtor: input.debtor,
+            userId: findUser.id,
+            title: input.title,
+          },
         });
 
         for (let index = 0; index < input.qtdInstallments; index++) {
@@ -51,5 +56,14 @@ export const billRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       await ctx.prisma.bill.delete({ where: { id: input.billId } });
+    }),
+
+  payInstallment: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.installment.update({
+        where: { id: input.id },
+        data: { payed: true, updated_at: new Date() },
+      });
     }),
 });
