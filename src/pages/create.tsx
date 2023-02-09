@@ -45,7 +45,7 @@ const Create: NextPage = () => {
         </p>
         <div className="mt-4">
           <label
-            for="title"
+            htmlFor="title"
             class="mb-2 block text-sm font-medium text-gray-900"
           >
             Nome da conta
@@ -53,7 +53,7 @@ const Create: NextPage = () => {
           <input
             type="text"
             id="title"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             placeholder="10 real da pinga"
             required
             {...register("title")}
@@ -61,7 +61,7 @@ const Create: NextPage = () => {
         </div>
         <div className="mt-4">
           <label
-            for="debtor"
+            htmlFor="debtor"
             class="mb-2 block text-sm font-medium text-gray-900"
           >
             Nome do veaco
@@ -78,7 +78,7 @@ const Create: NextPage = () => {
         <div class="mb-6 grid gap-6 md:grid-cols-2">
           <div className="mt-4">
             <label
-              for="value"
+              htmlFor="value"
               class="mb-2 block text-sm font-medium text-gray-900"
             >
               Valor que o veaco de deve
@@ -94,7 +94,7 @@ const Create: NextPage = () => {
           </div>
           <div className="mt-4">
             <label
-              for="first_name"
+              htmlFor="first_name"
               class="mb-2 block text-sm font-medium text-gray-900"
             >
               Em quantas vezes?

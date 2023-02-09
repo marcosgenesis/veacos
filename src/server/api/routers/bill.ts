@@ -40,13 +40,44 @@ export const billRouter = createTRPCRouter({
         }
       }
     }),
+  getDetailedBillFromUser: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      return ctx.prisma.bill.findFirst({ where: { id: input.id } });
+    }),
+  getAllFromUser: protectedProcedure
+    .input(z.object({ search: z.string().optional().default("") }))
+    .query(async ({ input, ctx }) => {
+      const bills = await ctx.prisma.bill.findMany({
+        where: {
+          User: {
+            email: ctx.session.user.email,
+          },
+          OR: [
+            { title: { contains: input.search } },
+            { debtor: { contains: input.search } },
+          ],
+        },
+        include: { installment: true },
+      });
 
-  getAllFromUser: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.bill.findMany({
-      where: { User: { email: ctx.session.user.email } },
-      include: { installment: true },
-    });
-  }),
+      return bills.map((bill) => {
+        const info = bill.installment.reduce(
+          (acc, item) => {
+            if (item.payed) {
+              acc = {
+                total: acc.total + item.value,
+                payed: acc.payed + item.value,
+              };
+              return acc;
+            }
+            return { ...acc, total: acc.total + item.value };
+          },
+          { total: 0, payed: 0 }
+        );
+        return { ...bill, ...info };
+      });
+    }),
 
   deleteBill: protectedProcedure
     .input(
@@ -59,11 +90,11 @@ export const billRouter = createTRPCRouter({
     }),
 
   payInstallment: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string(), payed: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
       await ctx.prisma.installment.update({
         where: { id: input.id },
-        data: { payed: true, updated_at: new Date() },
+        data: { payed: input.payed, updated_at: new Date() },
       });
     }),
 });
