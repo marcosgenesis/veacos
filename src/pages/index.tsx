@@ -6,6 +6,8 @@ import Sidebar from "../components/Sidebar";
 
 import Bill from "../components/Bill";
 import { useState } from "react";
+import Link from "next/link";
+import { RiAddLine } from "react-icons/ri";
 
 const Home: NextPage = () => {
   const [searchItem, setSearchItem] = useState("");
@@ -16,8 +18,9 @@ const Home: NextPage = () => {
   } = api.bill.getAllFromUser.useQuery(
     {
       search: searchItem,
+      isPersonal: false,
     },
-    { keepPreviousData: false, }
+    { keepPreviousData: false }
   );
 
   return (
@@ -37,11 +40,18 @@ const Home: NextPage = () => {
               </p>
             </div>
 
-            <div className="w-96">
+            <div className="flex gap-4">
+              <Link
+                href={"/create"}
+                className="item-center flex  justify-center gap-2 rounded-lg bg-slate-900 p-4 text-white"
+              >
+                <RiAddLine size={24} />
+                Criar dívida
+              </Link>
               <input
                 type="text"
                 id="title"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                className="block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Pesquise pelo nome do veaco ou o título da dívida"
                 required
                 onChange={(e) => setSearchItem(e.target.value)}

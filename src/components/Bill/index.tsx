@@ -23,7 +23,10 @@ interface BillProps {
 }
 const Bill = ({ bill }: BillProps) => {
   const deleteBill = api.bill.deleteBill.useMutation();
-  const { refetch } = api.bill.getAllFromUser.useQuery({search:''});
+  const { refetch } = api.bill.getAllFromUser.useQuery({
+    search: "",
+    isPersonal: false,
+  });
 
   async function handleDeleteBill(id: string) {
     try {

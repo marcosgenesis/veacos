@@ -4,6 +4,7 @@ import { Installment } from "@prisma/client";
 import { api } from "../utils/api";
 import { RiCheckLine, RiErrorWarningLine } from "react-icons/ri";
 import Confetti from "react-dom-confetti";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface InstallmentProps {
   installment: Installment;
@@ -26,13 +27,13 @@ const config = {
 const Installment: React.FC<InstallmentProps> = ({ installment }) => {
   const [isConfettiActive, setIsConfettiActive] = useState(false);
   const payInstallment = api.bill.payInstallment.useMutation();
-  const { refetch } = api.bill.getAllFromUser.useQuery({ search: "" });
+  const queryClient = useQueryClient();
 
   async function handlePayInstallment(id: string, payed: boolean) {
     try {
       await payInstallment.mutateAsync({ id, payed });
       setIsConfettiActive(false);
-      await refetch();
+      await queryClient.invalidateQueries();
     } catch (error) {
       console.log(error);
     }

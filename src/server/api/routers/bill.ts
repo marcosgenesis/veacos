@@ -1,8 +1,7 @@
-import { Bill } from "@prisma/client";
 import { addMonths } from "date-fns";
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const billRouter = createTRPCRouter({
   createBill: protectedProcedure
@@ -13,6 +12,7 @@ export const billRouter = createTRPCRouter({
         debtor: z.string().min(3),
         value: z.number().nonnegative().gte(1),
         qtdInstallments: z.number().nonnegative().int(),
+        isPersonal: z.boolean().default(false).optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -26,6 +26,7 @@ export const billRouter = createTRPCRouter({
             debtor: input.debtor,
             userId: findUser.id,
             title: input.title,
+            isPersonal: input.isPersonal ?? false,
           },
         });
 
@@ -46,13 +47,19 @@ export const billRouter = createTRPCRouter({
       return ctx.prisma.bill.findFirst({ where: { id: input.id } });
     }),
   getAllFromUser: protectedProcedure
-    .input(z.object({ search: z.string().optional().default("") }))
+    .input(
+      z.object({
+        search: z.string().optional().default(""),
+        isPersonal: z.boolean().optional().default(false),
+      })
+    )
     .query(async ({ input, ctx }) => {
       const bills = await ctx.prisma.bill.findMany({
         where: {
           User: {
             email: ctx.session.user.email,
           },
+          isPersonal: input.isPersonal ?? false,
           OR: [
             { title: { contains: input.search } },
             { debtor: { contains: input.search } },
@@ -78,7 +85,6 @@ export const billRouter = createTRPCRouter({
         return { ...bill, ...info };
       });
     }),
-
   deleteBill: protectedProcedure
     .input(
       z.object({
