@@ -17,14 +17,14 @@ const NavItem = ({ path, icon, label }: NavItemProps) => {
     <Link
       href={path}
       className={`flex cursor-pointer items-center gap-4 rounded-md p-4 ${
-        isActive ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-100"
+        isActive ? "bg-gray-900  hover:bg-gray-800" : "hover:bg-gray-100"
       } `}
     >
       <Icon
         size={20}
-        className={`${isActive ? "fill-slate-900" : "fill-gray-400"}`}
+        className={`${isActive ? "text-white" : "fill-gray-400"}`}
       />
-      <p className={`${isActive ? "text-slate-900" : "text-gray-400"} font-medium`}>
+      <p className={`${isActive ? "text-white" : "text-gray-400"} font-medium`}>
         {label}
       </p>
     </Link>
