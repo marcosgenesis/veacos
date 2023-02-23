@@ -28,7 +28,7 @@ const Home: React.FC = () => {
     <main className="flex min-h-screen bg-gray-100">
       <Sidebar />
       <div className="w-full">
-        <div className="flex justify-between bg-white p-6 shadow-sm">
+        <div className="hidden md:flex justify-between bg-white p-6 shadow-sm">
           <div className="flex flex-col">
             <p className="text-xl font-medium">Quem me deve</p>
             <p className="text-sm text-gray-400">

@@ -4,7 +4,7 @@ import { Profile } from "./Profile";
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="flex h-screen w-72 flex-col items-center rounded-md bg-white p-4 shadow-sm">
+    <div className="hidden h-screen w-72 flex-col items-center rounded-md bg-white p-4 shadow-sm md:flex">
       <p className="mb-4 text-lg font-medium">Veacos</p>
       <hr className="mb-4 w-full border-gray-100" />
       <ul className="flex w-full flex-col gap-2">

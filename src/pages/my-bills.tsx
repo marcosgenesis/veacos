@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { RiAddLine } from "react-icons/ri";
 import Bill from "../components/Bill";
+import Button from "../components/Button";
 import CreatePersonalBillModal from "../components/CreatePersonalBillModal";
 import Sidebar from "../components/Sidebar";
 import { api } from "../utils/api";
@@ -11,7 +12,7 @@ import { api } from "../utils/api";
 const MyBills: React.FC = () => {
   const [searchItem, setSearchItem] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const { data: bills,isSuccess } = api.bill.getAllFromUser.useQuery(
+  const { data: bills, isSuccess } = api.bill.getAllFromUser.useQuery(
     {
       search: searchItem,
       isPersonal: true,
@@ -33,13 +34,14 @@ const MyBills: React.FC = () => {
           </div>
 
           <div className="flex gap-4">
-            <button
+            <Button variant="solid" icon={RiAddLine}>Criar Dívida</Button>
+            {/* <button
               onClick={() => setIsOpen(true)}
               className="item-center flex  justify-center gap-2 rounded-lg bg-slate-900 p-4 text-white"
             >
               <RiAddLine size={24} />
               Criar dívida
-            </button>
+            </button> */}
             <input
               type="text"
               id="title"
