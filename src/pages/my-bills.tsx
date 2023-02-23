@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { RiAddLine } from "react-icons/ri";
@@ -21,38 +22,64 @@ const MyBills: React.FC = () => {
   );
 
   return (
-    <main className="flex min-h-screen bg-gray-100">
+    <main className="flex min-h-screen flex-col bg-gray-100 md:flex-row">
       <Sidebar />
       <div className="w-full">
-        <div className="flex justify-between bg-white p-6 shadow-sm">
-          <div className="flex flex-col">
-            <p className="text-xl font-medium">Quem eu devo</p>
-            <p className="text-sm text-gray-400">
-              Abaixo está todas as pessoas que você deve, e suas respectivas
-              parcelas
-            </p>
+        <div>
+          <div className="px-4 md:hidden">
+            <Link href={"/create"}>
+              <Button isFullWidth variant="solid" icon={RiAddLine}>
+                Criar dívida
+              </Button>
+            </Link>
           </div>
+          <div className="hidden justify-between bg-white p-6 shadow-sm md:flex">
+            <div className="flex flex-col">
+              <p className="text-xl font-medium">Quem eu devo</p>
+              <p className="text-sm text-gray-400">
+                Abaixo está todas as pessoas que você deve, e suas respectivas
+                parcelas
+              </p>
+            </div>
 
-          <div className="flex gap-4">
-            <Button variant="solid" icon={RiAddLine}>Criar Dívida</Button>
-            {/* <button
-              onClick={() => setIsOpen(true)}
-              className="item-center flex  justify-center gap-2 rounded-lg bg-slate-900 p-4 text-white"
-            >
-              <RiAddLine size={24} />
-              Criar dívida
-            </button> */}
-            <input
-              type="text"
-              id="title"
-              className="block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Pesquise pelo nome do veaco ou o título da dívida"
-              required
-              onChange={(e) => setSearchItem(e.target.value)}
-            />
+            <div className="flex gap-4">
+              <Button
+                variant="solid"
+                icon={RiAddLine}
+                onClick={() => setIsOpen(true)}
+              >
+                Criar Dívida
+              </Button>
+              <input
+                type="text"
+                id="title"
+                className="block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Pesquise pelo nome do veaco ou o título da dívida"
+                required
+                onChange={(e) => setSearchItem(e.target.value)}
+              />
+            </div>
           </div>
         </div>
         <div className="m-4 flex flex-col gap-8">
+          {isSuccess && bills.length === 0 && (
+            <div className="flex flex-col items-center">
+              <Image
+                src="/empty.png"
+                alt="Empty Bills"
+                width={100}
+                height={100}
+                className="mb-4"
+              />
+              <p className="font-medium text-gray-800">
+                Nenhuma dívida cadastrada!
+              </p>
+              <p className="text-sm font-normal text-gray-400">
+                Cadastre agora mesmo uma dívida que você precisa pagar para
+                alguém
+              </p>
+            </div>
+          )}
           {isSuccess && bills.map((item) => <Bill key={item.id} bill={item} />)}
         </div>
       </div>

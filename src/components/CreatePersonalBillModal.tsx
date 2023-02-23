@@ -60,7 +60,7 @@ const CreatePersonalBillModal = ({
           <div className="mt-4">
             <label
               htmlFor="title"
-              class="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-gray-900"
             >
               Nome da conta
             </label>
