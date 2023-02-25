@@ -6,7 +6,7 @@ export const requireAuthentication = async (
   context: GetServerSidePropsContext,
   cb: (session: Session) => void
 ) => {
-  const session = await getSession(context);
+  const session = await getSession({ ctx: context });
 
   if (!session) {
     return {
