@@ -27,7 +27,7 @@ const Home: NextPage = () => {
   );
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const session = await getSession({ ctx: context });
   if (session) {
     return { redirect: { destination: "/home", permanent: false } };
   }
