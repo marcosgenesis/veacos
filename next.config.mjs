@@ -4,6 +4,7 @@
  * This is especially useful for Docker builds.
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
+import { withAxiom } from "next-axiom";
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -16,6 +17,5 @@ const config = {
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
-  // typescript: { ignoreBuildErrors: true },
 };
-export default config;
+export default withAxiom(config);

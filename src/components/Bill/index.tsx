@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { log } from "next-axiom";
 import React from "react";
 import { RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
 import { api, RouterOutputs } from "../../utils/api";
@@ -33,7 +34,7 @@ const Bill = ({ bill }: BillProps) => {
       await deleteBill.mutateAsync({ billId: id });
       await refetch();
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 

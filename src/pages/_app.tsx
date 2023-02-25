@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
+export { reportWebVitals } from 'next-axiom';
 import { QueryClient, QueryClientProvider, } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

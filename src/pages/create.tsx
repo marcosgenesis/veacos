@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { log } from "next-axiom";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -17,8 +18,6 @@ const Create: NextPage = () => {
 
   const handleCreateSubmit:SubmitHandler<Bill> = async (date) =>{
     try {
-      console.log(sessionData?.user);
-
       await createBill.mutateAsync({
         debtor: date.debtor,
         qtdInstallments,
@@ -28,7 +27,7 @@ const Create: NextPage = () => {
       });
       await router.push("/");
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 
