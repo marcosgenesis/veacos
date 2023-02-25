@@ -27,7 +27,7 @@ const Create: NextPage = () => {
       });
       await router.push("/");
     } catch (error) {
-      log.error("create bill", {error});
+      log.error("create bill", { error, date });
     }
   };
 

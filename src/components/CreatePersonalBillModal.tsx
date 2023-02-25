@@ -23,18 +23,18 @@ const CreatePersonalBillModal = ({
   const { register, handleSubmit, reset } = useForm<Bill>();
   const createBill = api.bill.createBill.useMutation();
 
-  const handleCreateSubmit: SubmitHandler<Bill> = async (date) => {
+  const handleCreateSubmit: SubmitHandler<Bill> = async (data) => {
     try {
       await createBill.mutateAsync({
-        debtor: date.debtor,
+        debtor: data.debtor,
         qtdInstallments,
-        value: Math.floor(date.value),
+        value: Math.floor(data.value),
         user: sessionData?.user?.email ?? "",
-        title: date.title,
+        title: data.title,
         isPersonal: true,
       });
     } catch (error) {
-      log.error("Error: create personal bill", {error});
+      log.error("Error: create personal bill", { error, data });
     }
   };
 
