@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { log } from "next-axiom";
 import React, { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -33,7 +34,7 @@ const CreatePersonalBillModal = ({
         isPersonal: true,
       });
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   };
 

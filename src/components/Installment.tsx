@@ -5,6 +5,7 @@ import { api } from "../utils/api";
 import { RiCheckLine, RiErrorWarningLine } from "react-icons/ri";
 import Confetti, { ConfettiConfig } from "react-dom-confetti";
 import { useQueryClient } from "@tanstack/react-query";
+import { log } from "next-axiom";
 
 interface InstallmentProps {
   installment: Installment;
@@ -34,7 +35,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
       setIsConfettiActive(false);
       await queryClient.invalidateQueries();
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 
