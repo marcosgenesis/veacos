@@ -30,7 +30,7 @@ const CreatePersonalBillModal = ({
         value: parseFloat(date.value),
         user: sessionData?.user?.email,
         title: date.title,
-        isPersonal:true,
+        isPersonal: true,
       });
     } catch (error) {
       console.log(error);
@@ -41,9 +41,9 @@ const CreatePersonalBillModal = ({
     <div
       className={`absolute ${
         isOpen ? "flex" : "hidden"
-      } h-screen w-screen items-center justify-center bg-black/50`}
+      } h-screen w-screen items-center justify-center bg-black/50 p-2 md:p-0`}
     >
-      <div className="w-1/4 rounded-lg bg-white shadow-md">
+      <div className="w-full rounded-lg bg-white shadow-md md:w-1/4">
         <div className="flex justify-between rounded-t-lg bg-gray-100 p-4">
           <p className="text-xl font-medium">Criar dívida pessoal</p>
           <button
@@ -106,7 +106,7 @@ const CreatePersonalBillModal = ({
                 {...register("value")}
               />
             </div>
-            <div className="mt-4">
+            <div className="mt-4 w-full md:w-fit flex items-center justify-center gap-4">
               <label
                 htmlFor="first_name"
                 class="mb-2 block text-sm font-medium text-gray-900"

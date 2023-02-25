@@ -27,11 +27,10 @@ const MyBills: React.FC = () => {
       <div className="w-full">
         <div>
           <div className="px-4 md:hidden">
-            <Link href={"/create"}>
-              <Button isFullWidth variant="solid" icon={RiAddLine}>
-                Criar dívida
-              </Button>
-            </Link>
+            <Button isFullWidth variant="solid" icon={RiAddLine} 
+                onClick={() => setIsOpen(true)}>
+              Criar dívida
+            </Button>
           </div>
           <div className="hidden justify-between bg-white p-6 shadow-sm md:flex">
             <div className="flex flex-col">
