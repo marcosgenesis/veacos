@@ -16,6 +16,7 @@ const config = {
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
+  experimental: { forceSwcTransforms: true },
   typescript: { ignoreBuildErrors: true },
 };
 export default config;
