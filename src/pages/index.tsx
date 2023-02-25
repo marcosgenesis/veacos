@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { RiGoogleFill } from "react-icons/ri";
 import Button from "../components/Button";
+import { getServerAuthSession } from "../server/auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 
 const Home: NextPage = () => {
@@ -20,7 +21,7 @@ const Home: NextPage = () => {
               Gerencie quem te deve e a quem você deve
             </p>
           </div>
-          <Button icon={RiGoogleFill} onClick={signIn("google")}>
+          <Button icon={RiGoogleFill} onClick={() => signIn("google")}>
             Entrar
           </Button>
         </div>
@@ -28,15 +29,14 @@ const Home: NextPage = () => {
     </>
   );
 };
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await unstable_getServerSession(
-//     context.req,
-//     context.res,
-//     authOptions
-//   );
-//   if (session) {
-//     return { redirect: { destination: "/home", permanent: false } };
-//   }
-//   return { props: {} };
-// };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerAuthSession(context);
+  if (session) {
+    return {
+      redirect: { destination: "/home", permanent: false },
+      props: { session },
+    };
+  }
+  return { props: {} };
+};
 export default Home;

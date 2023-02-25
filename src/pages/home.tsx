@@ -7,10 +7,10 @@ import Bill from "../components/Bill";
 import { useState } from "react";
 import Link from "next/link";
 import { RiAddLine } from "react-icons/ri";
-import { requireAuthentication } from "../utils/withAuth";
 import { GetServerSideProps } from "next";
 import Button from "../components/Button";
 import Head from "next/head";
+import { getServerAuthSession } from "../server/auth";
 
 const Home: React.FC = () => {
   const [searchItem, setSearchItem] = useState("");
@@ -86,10 +86,21 @@ const Home: React.FC = () => {
     </>
   );
 };
-// export const getServerSideProps: GetServerSideProps = (context) => {
-//   return requireAuthentication(context, (session) => {
-//     return { props: { session } };
-//   });
-// };
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+};
 
 export default Home;

@@ -2,7 +2,7 @@ import React from "react";
 import type { IconType } from "react-icons";
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   icon: IconType;
-  variant: "solid" | "ghost" | "destructive";
+  variant?: "solid" | "ghost" | "destructive";
   isFullWidth?: boolean;
 }
 
