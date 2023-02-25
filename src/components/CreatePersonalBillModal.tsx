@@ -29,12 +29,12 @@ const CreatePersonalBillModal = ({
         debtor: date.debtor,
         qtdInstallments,
         value: date.value,
-        user: sessionData?.user?.email ?? '',
+        user: sessionData?.user?.email ?? "",
         title: date.title,
         isPersonal: true,
       });
     } catch (error) {
-      log.error(error);
+      log.error("Error: create personal bill", error);
     }
   };
 
@@ -107,7 +107,7 @@ const CreatePersonalBillModal = ({
                 {...register("value")}
               />
             </div>
-            <div className="mt-4 w-full md:w-fit flex items-center justify-center gap-4">
+            <div className="mt-4 flex w-full items-center justify-center gap-4 md:w-fit">
               <label
                 htmlFor="first_name"
                 className="mb-2 block text-sm font-medium text-gray-900"

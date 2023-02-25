@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { RiAddLine, RiSubtractLine } from "react-icons/ri";
 import { api, RouterInputs } from "../utils/api";
 
-type Bill = RouterInputs["bill"]["createBill"]
+type Bill = RouterInputs["bill"]["createBill"];
 
 const Create: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -16,20 +16,20 @@ const Create: NextPage = () => {
   const { register, handleSubmit } = useForm<Bill>();
   const router = useRouter();
 
-  const handleCreateSubmit:SubmitHandler<Bill> = async (date) =>{
+  const handleCreateSubmit: SubmitHandler<Bill> = async (date) => {
     try {
       await createBill.mutateAsync({
         debtor: date.debtor,
         qtdInstallments,
         value: date.value,
-        user: sessionData?.user?.email ?? '',
+        user: sessionData?.user?.email ?? "",
         title: date.title,
       });
       await router.push("/");
     } catch (error) {
-      log.error(error);
+      log.error("create bill", error);
     }
-  }
+  };
 
   return (
     <div className="flex h-screen items-center justify-center">

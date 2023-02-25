@@ -11,7 +11,7 @@ interface InstallmentProps {
   installment: Installment;
 }
 
-const config:ConfettiConfig = {
+const config: ConfettiConfig = {
   angle: 90,
   spread: 142,
   startVelocity: 40,
@@ -35,7 +35,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
       setIsConfettiActive(false);
       await queryClient.invalidateQueries();
     } catch (error) {
-      log.error(error);
+      log.error("Error: pay installment", error);
     }
   }
 
