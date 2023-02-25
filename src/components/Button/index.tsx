@@ -1,10 +1,9 @@
 import React from "react";
 import type { IconType } from "react-icons";
-
-interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   icon: IconType;
   variant: "solid" | "ghost" | "destructive";
-  isFullWidth: boolean;
+  isFullWidth?: boolean;
 }
 
 const ghostVariant =
@@ -38,18 +37,20 @@ const Button = ({
   icon,
   variant = "ghost",
   isFullWidth = false,
+  type,
   ...props
 }: ButtonProps) => {
   const Icon = icon;
 
   return (
     <button
+      type={type}
       className={`flex ${
         isFullWidth ? "w-full" : "w-fit"
       } items-center justify-center gap-2 ${getVariant(variant)}`}
       {...props}
     >
-      {icon && <Icon size={20} />}
+      {!!icon && <Icon size={20} />}
       {children}
     </button>
   );

@@ -18,7 +18,7 @@ const Home: NextPage = () => {
               Gerencie quem te deve e a quem você deve
             </p>
           </div>
-          <Button icon={RiGoogleFill} onClick={() => signIn("google")}>
+          <Button icon={RiGoogleFill} onClick={signIn("google")}>
             Entrar
           </Button>
         </div>

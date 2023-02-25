@@ -1,7 +1,6 @@
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React from "react";
 import { RiLogoutBoxRLine, RiUserLine } from "react-icons/ri";
 
 export const Profile = () => {
@@ -10,7 +9,7 @@ export const Profile = () => {
     <HoverCard.Root>
       <HoverCard.Trigger asChild>
         <div className="flex items-center gap-2">
-          {sessionData?.user.image ? (
+          {sessionData?.user && sessionData?.user.image ? (
             <Image
               src={sessionData.user.image}
               width={50}
@@ -38,7 +37,7 @@ export const Profile = () => {
         >
           <div className=" flex flex-col gap-8">
             <div className="flex flex-col items-center gap-2">
-              {sessionData?.user.image ? (
+              {sessionData?.user && sessionData?.user.image ? (
                 <Image
                   src={sessionData.user.image}
                   width={50}

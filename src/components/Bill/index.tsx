@@ -39,7 +39,7 @@ const Bill = ({ bill }: BillProps) => {
 
   return (
     <div key={bill.id} className="relative flex flex-col">
-      <div className="relative z-50 flex flex-wrap h-fit md:h-24 justify-between gap-2 rounded-md bg-white p-4 py-4 md:flex-nowrap">
+      <div className="relative z-50 flex h-fit flex-wrap justify-between gap-2 rounded-md bg-white p-4 py-4 md:h-24 md:flex-nowrap">
         <div className="flex flex-col justify-between">
           <p className="truncate text-xl font-medium text-gray-800">
             {bill.title}

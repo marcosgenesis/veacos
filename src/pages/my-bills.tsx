@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { RiAddLine } from "react-icons/ri";
 import Bill from "../components/Bill";

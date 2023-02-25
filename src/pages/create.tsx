@@ -22,8 +22,8 @@ const Create: NextPage = () => {
       await createBill.mutateAsync({
         debtor: date.debtor,
         qtdInstallments,
-        value: parseFloat(date.value),
-        user: sessionData?.user?.email,
+        value: date.value,
+        user: sessionData?.user?.email ?? '',
         title: date.title,
       });
       await router.push("/");
@@ -46,7 +46,7 @@ const Create: NextPage = () => {
         <div className="mt-4">
           <label
             htmlFor="title"
-            class="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-gray-900"
           >
             Nome da conta
           </label>
@@ -62,31 +62,31 @@ const Create: NextPage = () => {
         <div className="mt-4">
           <label
             htmlFor="debtor"
-            class="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-gray-900"
           >
             Nome do veaco
           </label>
           <input
             type="text"
             id="debtor"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             placeholder="Fulano"
             required
             {...register("debtor")}
           />
         </div>
-        <div class="mb-6 grid gap-6 md:grid-cols-2">
+        <div className="mb-6 grid gap-6 md:grid-cols-2">
           <div className="mt-4">
             <label
               htmlFor="value"
-              class="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-gray-900"
             >
               Valor que o veaco de deve
             </label>
             <input
               type="text"
               id="value"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
               placeholder="50 mirreis"
               required
               {...register("value")}
@@ -95,7 +95,7 @@ const Create: NextPage = () => {
           <div className="mt-4">
             <label
               htmlFor="first_name"
-              class="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-gray-900"
             >
               Em quantas vezes?
             </label>
@@ -105,10 +105,10 @@ const Create: NextPage = () => {
                 onClick={() =>
                   setQtdInstallments((old) => (old !== 1 ? old - 1 : old))
                 }
-                class=" inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4"
+                className=" inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4"
               >
                 <RiSubtractLine size={20} />
-                <span class="sr-only">Icon description</span>
+                <span className="sr-only">Icon description</span>
               </button>
               <div className="flex items-center justify-center">
                 <p className="text-center text-lg">{qtdInstallments}</p>
@@ -116,17 +116,17 @@ const Create: NextPage = () => {
               <button
                 type="button"
                 onClick={() => setQtdInstallments((old) => old + 1)}
-                class="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4"
+                className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4"
               >
                 <RiAddLine size={20} />
-                <span class="sr-only">Icon description</span>
+                <span className="sr-only">Icon description</span>
               </button>
             </div>
           </div>
         </div>
         <button
           type="submit"
-          class="mr-2 mb-2 w-full rounded-lg bg-gray-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300"
+          className="mr-2 mb-2 w-full rounded-lg bg-gray-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300"
         >
           Criar Conta
         </button>

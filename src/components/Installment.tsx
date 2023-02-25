@@ -3,24 +3,23 @@ import { motion } from "framer-motion";
 import { Installment } from "@prisma/client";
 import { api } from "../utils/api";
 import { RiCheckLine, RiErrorWarningLine } from "react-icons/ri";
-import Confetti from "react-dom-confetti";
+import Confetti, { ConfettiConfig } from "react-dom-confetti";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface InstallmentProps {
   installment: Installment;
 }
 
-const config = {
-  angle: "90",
-  spread: "142",
+const config:ConfettiConfig = {
+  angle: 90,
+  spread: 142,
   startVelocity: 40,
   elementCount: 70,
   dragFriction: 0.12,
   duration: 1000,
-  stagger: "5",
+  stagger: 5,
   width: "6px",
   height: "7px",
-  perspective: "1000px",
   colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
 };
 
