@@ -21,7 +21,7 @@ const Create: NextPage = () => {
       await createBill.mutateAsync({
         debtor: date.debtor,
         qtdInstallments,
-        value: date.value,
+        value: Math.floor(date.value),
         user: sessionData?.user?.email ?? "",
         title: date.title,
       });

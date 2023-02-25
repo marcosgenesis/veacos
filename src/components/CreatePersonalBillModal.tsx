@@ -28,7 +28,7 @@ const CreatePersonalBillModal = ({
       await createBill.mutateAsync({
         debtor: date.debtor,
         qtdInstallments,
-        value: date.value,
+        value: Math.floor(date.value),
         user: sessionData?.user?.email ?? "",
         title: date.title,
         isPersonal: true,
