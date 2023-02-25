@@ -86,10 +86,10 @@ const Home: React.FC = () => {
     </>
   );
 };
-export const getServerSideProps: GetServerSideProps = (context) => {
-  return requireAuthentication(context, (session) => {
-    return { props: { session } };
-  });
-};
+// export const getServerSideProps: GetServerSideProps = (context) => {
+//   return requireAuthentication(context, (session) => {
+//     return { props: { session } };
+//   });
+// };
 
 export default Home;
