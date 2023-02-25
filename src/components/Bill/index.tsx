@@ -34,7 +34,7 @@ const Bill = ({ bill }: BillProps) => {
       await deleteBill.mutateAsync({ billId: id });
       await refetch();
     } catch (error) {
-      log.error("Error: delete bill", error);
+      log.error("Error: delete bill", {error});
     }
   }
 

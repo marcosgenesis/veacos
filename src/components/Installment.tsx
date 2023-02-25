@@ -35,7 +35,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
       setIsConfettiActive(false);
       await queryClient.invalidateQueries();
     } catch (error) {
-      log.error("Error: pay installment", error);
+      log.error("Error: pay installment", {error});
     }
   }
 

@@ -34,7 +34,7 @@ const CreatePersonalBillModal = ({
         isPersonal: true,
       });
     } catch (error) {
-      log.error("Error: create personal bill", error);
+      log.error("Error: create personal bill", {error});
     }
   };
 
