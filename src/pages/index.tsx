@@ -1,8 +1,10 @@
 import { GetServerSideProps, type NextPage } from "next";
-import { getSession, signIn } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth";
+import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { RiGoogleFill } from "react-icons/ri";
 import Button from "../components/Button";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 const Home: NextPage = () => {
   return (
@@ -27,7 +29,11 @@ const Home: NextPage = () => {
   );
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession({ ctx: context });
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
   if (session) {
     return { redirect: { destination: "/home", permanent: false } };
   }
