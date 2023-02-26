@@ -2,6 +2,7 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { RiLogoutBoxRLine, RiUserLine } from "react-icons/ri";
+import Button from "../Button";
 
 export const Profile = () => {
   const { data: sessionData } = useSession();
@@ -57,13 +58,14 @@ export const Profile = () => {
                 </p>
               </div>
             </div>
-            <button
-              onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}
-              className="flex w-full cursor-pointer items-center gap-4 rounded-md border-2 border-gray-50 p-2 hover:bg-gray-100"
+            <Button
+              variant="destructive"
+              isFullWidth
+              icon={RiLogoutBoxRLine}
+              onClick={() => signOut({ callbackUrl: process.env.NEXTAUTH_URL })}
             >
-              <RiLogoutBoxRLine size={16} />
-              <p>Sair</p>
-            </button>
+              Sair
+            </Button>
           </div>
         </HoverCard.Content>
       </HoverCard.Portal>

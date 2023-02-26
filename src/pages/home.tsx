@@ -11,6 +11,7 @@ import { GetServerSideProps } from "next";
 import Button from "../components/Button";
 import Head from "next/head";
 import { getServerAuthSession } from "../server/auth";
+import Input from "../components/Input";
 
 const Home: React.FC = () => {
   const [searchItem, setSearchItem] = useState("");
@@ -52,21 +53,22 @@ const Home: React.FC = () => {
               </div>
 
               <div className="flex gap-4">
-                <Link
-                  href={"/create"}
-                  className="item-center flex  justify-center gap-2 rounded-lg bg-slate-900 p-4 text-white"
-                >
-                  <RiAddLine size={24} />
-                  Criar dívida
+                <Link href={"/create"}>
+                  <Button isFullWidth variant="solid" icon={RiAddLine}>
+                    Criar dívida
+                  </Button>
                 </Link>
-                <input
+                <Input
+                  placeholder="Pesquise pelo nome do veaco"
+                  onChange={(e) => setSearchItem(e.target.value)}
+                />
+                {/* <input
                   type="text"
                   id="title"
                   className="block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                   placeholder="Pesquise pelo nome do veaco ou o título da dívida"
                   required
-                  onChange={(e) => setSearchItem(e.target.value)}
-                />
+                /> */}
               </div>
             </div>
           </div>

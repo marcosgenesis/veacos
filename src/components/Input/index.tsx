@@ -1,8 +1,8 @@
 import React from "react";
 import type { IconType } from "react-icons";
-interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
-  icon: IconType;
-  variant?: "solid" | "ghost" | "destructive";
+interface ButtonProps extends React.ComponentPropsWithoutRef<"input"> {
+  leftAddormentIcon?: IconType;
+  // variant?: "solid" | "ghost" | "destructive";
   isFullWidth?: boolean;
 }
 
@@ -32,28 +32,22 @@ function getVariant(variant: string) {
   }
 }
 
-const Button = ({
-  children,
-  icon,
-  variant = "ghost",
+const Input = ({
+  leftAddormentIcon,
   isFullWidth = false,
-  type,
   ...props
 }: ButtonProps) => {
-  const Icon = icon;
+  const Icon = leftAddormentIcon;
 
   return (
-    <button
-      type={type}
-      className={`flex h-11 ${
-        isFullWidth ? "w-full" : "w-fit"
-      } items-center justify-center gap-2 ${getVariant(variant)}`}
+    <input
+      type="text"
+      className={`min-w-xs ${
+        isFullWidth ? "w-full" : "w-80"
+      } h-11 rounded-lg border-2 px-4 py-4 font-normal shadow-sm placeholder:font-normal focus:border-gray-400 focus:outline-none focus:ring focus:ring-gray-300`}
       {...props}
-    >
-      {!!icon && <Icon size={20} />}
-      {children}
-    </button>
+    />
   );
 };
 
-export default Button;
+export default Input;

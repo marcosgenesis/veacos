@@ -28,7 +28,7 @@ const CreatePersonalBillModal = ({
       await createBill.mutateAsync({
         debtor: data.debtor,
         qtdInstallments,
-        value: Math.floor(data.value),
+        value: data.value,
         user: sessionData?.user?.email ?? "",
         title: data.title,
         isPersonal: true,
@@ -104,7 +104,7 @@ const CreatePersonalBillModal = ({
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="50 mirreis"
                 required
-                {...register("value")}
+                {...register("value", { valueAsNumber: true })}
               />
             </div>
             <div className="mt-4 flex w-full items-center justify-center gap-4 md:w-fit">

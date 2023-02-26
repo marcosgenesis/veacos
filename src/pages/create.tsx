@@ -21,7 +21,7 @@ const Create: NextPage = () => {
       await createBill.mutateAsync({
         debtor: date.debtor,
         qtdInstallments,
-        value: Math.floor(date.value),
+        value: date.value,
         user: sessionData?.user?.email ?? "",
         title: date.title,
       });
@@ -88,7 +88,7 @@ const Create: NextPage = () => {
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
               placeholder="50 mirreis"
               required
-              {...register("value")}
+              {...register("value", { valueAsNumber: true })}
             />
           </div>
           <div className="mt-4">

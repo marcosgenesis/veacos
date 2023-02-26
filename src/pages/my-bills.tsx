@@ -4,6 +4,7 @@ import { RiAddLine } from "react-icons/ri";
 import Bill from "../components/Bill";
 import Button from "../components/Button";
 import CreatePersonalBillModal from "../components/CreatePersonalBillModal";
+import Input from "../components/Input";
 import Sidebar from "../components/Sidebar";
 import { api } from "../utils/api";
 
@@ -26,8 +27,12 @@ const MyBills: React.FC = () => {
       <div className="w-full">
         <div>
           <div className="px-4 md:hidden">
-            <Button isFullWidth variant="solid" icon={RiAddLine} 
-                onClick={() => setIsOpen(true)}>
+            <Button
+              isFullWidth
+              variant="solid"
+              icon={RiAddLine}
+              onClick={() => setIsOpen(true)}
+            >
               Criar dívida
             </Button>
           </div>
@@ -48,12 +53,9 @@ const MyBills: React.FC = () => {
               >
                 Criar Dívida
               </Button>
-              <input
-                type="text"
-                id="title"
-                className="block w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="Pesquise pelo nome do veaco ou o título da dívida"
-                required
+
+              <Input
+                placeholder="Pesquise pelo nome do veaco"
                 onChange={(e) => setSearchItem(e.target.value)}
               />
             </div>
