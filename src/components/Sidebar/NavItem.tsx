@@ -15,7 +15,7 @@ const NavItem = ({ path, icon, label }: NavItemProps) => {
   const isActive = router.pathname === path;
   return (
     <Link href={path}>
-      <Button icon={icon} variant={isActive ? "solid" : "ghost"} isFullWidth>
+      <Button icon={icon} variant={isActive ? "solid" : "tertiary"} isFullWidth>
         {label}
       </Button>
     </Link>

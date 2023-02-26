@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { RiAddLine, RiSubtractLine } from "react-icons/ri";
+import Input from "../components/Input";
 import { api, RouterInputs } from "../utils/api";
 
 type Bill = RouterInputs["bill"]["createBill"];
@@ -49,10 +50,10 @@ const Create: NextPage = () => {
           >
             Nome da conta
           </label>
-          <input
+          <Input
             type="text"
             id="title"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            isFullWidth
             placeholder="10 real da pinga"
             required
             {...register("title")}
@@ -65,10 +66,10 @@ const Create: NextPage = () => {
           >
             Nome do veaco
           </label>
-          <input
+          <Input
             type="text"
             id="debtor"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            isFullWidth
             placeholder="Fulano"
             required
             {...register("debtor")}
@@ -82,10 +83,9 @@ const Create: NextPage = () => {
             >
               Valor que o veaco de deve
             </label>
-            <input
+            <Input
               type="text"
               id="value"
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
               placeholder="50 mirreis"
               required
               {...register("value", { valueAsNumber: true })}

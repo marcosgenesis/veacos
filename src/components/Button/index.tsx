@@ -9,6 +9,9 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 const ghostVariant =
   "py-2 px-4 text-gray-700 border-2 shadow-sm border-gray-300 hover:bg-gray-50 active:bg-gray-100 rounded-lg font-semibold focus:outline-none focus:ring focus:ring-gray-200";
 
+const tertiary =
+  "py-2 px-4 text-gray-400 border-gray-300 hover:bg-gray-200 hover:text-gray-700 transition active:bg-gray-100 rounded-lg font-semibold focus:outline-none focus:ring focus:ring-gray-200";
+
 const destructiveVariant =
   "py-2 px-4 text-white bg-red-600 shadow-sm hover:bg-red-700 active:bg-red-700 rounded-lg font-semibold focus:outline-none focus:ring focus:ring-red-200";
 
@@ -18,13 +21,16 @@ const solidVariant =
 function getVariant(variant: string) {
   switch (variant) {
     case "ghost":
-      return ghostVariant;
+      return ghost;
       break;
     case "solid":
       return solidVariant;
       break;
     case "destructive":
       return destructiveVariant;
+      break;
+    case "tertiary":
+      return tertiary;
       break;
     default:
       return ghostVariant;

@@ -15,7 +15,6 @@ const MyBills: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: bills, isSuccess } = api.bill.getAllFromUser.useQuery(
     {
-      search: searchItem,
       isPersonal: true,
     },
     { keepPreviousData: false }
