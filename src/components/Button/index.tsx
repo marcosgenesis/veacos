@@ -21,7 +21,7 @@ const solidVariant =
 function getVariant(variant: string) {
   switch (variant) {
     case "ghost":
-      return ghost;
+      return ghostVariant;
       break;
     case "solid":
       return solidVariant;
