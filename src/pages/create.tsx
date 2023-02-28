@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { RiAddLine, RiSubtractLine } from "react-icons/ri";
+import Button from "../components/Button";
 import Input from "../components/Input";
 import { api, RouterInputs } from "../utils/api";
 
@@ -33,20 +34,20 @@ const Create: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center dark:bg-gray-900">
       <form
         onSubmit={handleSubmit(handleCreateSubmit)}
-        className="rounded-md border-2 border-gray-200 bg-white p-4"
+        className="rounded-md border-2 border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
       >
         <p className="text-xl">Anote quem te deve!</p>
-        <p className="text-xs text-black/60">
+        <p className="text-xs text-black/60 dark:text-gray-400">
           Crie abaixo uma conta que algúem te deve, e faça o acompanhamento por
           aqui
         </p>
         <div className="mt-4">
           <label
             htmlFor="title"
-            className="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
             Nome da conta
           </label>
@@ -62,7 +63,7 @@ const Create: NextPage = () => {
         <div className="mt-4">
           <label
             htmlFor="debtor"
-            className="mb-2 block text-sm font-medium text-gray-900"
+            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
             Nome do veaco
           </label>
@@ -79,7 +80,7 @@ const Create: NextPage = () => {
           <div className="mt-4">
             <label
               htmlFor="value"
-              className="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
               Valor que o veaco de deve
             </label>
@@ -94,7 +95,7 @@ const Create: NextPage = () => {
           <div className="mt-4">
             <label
               htmlFor="first_name"
-              className="mb-2 block text-sm font-medium text-gray-900"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
               Em quantas vezes?
             </label>
@@ -104,7 +105,7 @@ const Create: NextPage = () => {
                 onClick={() =>
                   setQtdInstallments((old) => (old !== 1 ? old - 1 : old))
                 }
-                className=" inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4"
+                className=" inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4 dark:bg-white dark:text-gray-900 hover:dark:bg-gray-200"
               >
                 <RiSubtractLine size={20} />
                 <span className="sr-only">Icon description</span>
@@ -115,7 +116,7 @@ const Create: NextPage = () => {
               <button
                 type="button"
                 onClick={() => setQtdInstallments((old) => old + 1)}
-                className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4"
+                className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4 dark:bg-white dark:text-gray-900 hover:dark:bg-gray-200"
               >
                 <RiAddLine size={20} />
                 <span className="sr-only">Icon description</span>
@@ -123,12 +124,14 @@ const Create: NextPage = () => {
             </div>
           </div>
         </div>
-        <button
+        <Button
+          variant="solid"
+          isFullWidth
           type="submit"
-          className="mr-2 mb-2 w-full rounded-lg bg-gray-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300"
+          // className="mr-2 mb-2 w-full rounded-lg bg-gray-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300"
         >
           Criar Conta
-        </button>
+        </Button>
       </form>
     </div>
   );

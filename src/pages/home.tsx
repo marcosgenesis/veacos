@@ -32,7 +32,7 @@ const Home: React.FC = () => {
       <Head>
         <title>Veacos</title>
       </Head>
-      <main className="flex min-h-screen flex-col bg-gray-100 md:flex-row">
+      <main className="flex min-h-screen flex-col bg-gray-100 dark:bg-gray-900 md:flex-row">
         <Sidebar />
         <div className="w-full">
           <div>
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
                 </Button>
               </Link>
             </div>
-            <div className="hidden justify-between bg-white p-6 shadow-sm md:flex">
+            <div className="hidden justify-between bg-white p-6 shadow-sm dark:border-b-2 dark:border-gray-800 dark:bg-gray-900 md:flex">
               <div className="flex flex-col">
                 <p className="text-xl font-medium">Quem me deve</p>
                 <p className="text-sm text-gray-400">

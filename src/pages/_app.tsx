@@ -9,6 +9,7 @@ export { reportWebVitals } from "next-axiom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
+import { ThemeProvider } from "next-themes";
 
 const queryClient = new QueryClient();
 
@@ -17,14 +18,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <>
+    <ThemeProvider enableSystem={true} attribute="class">
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
           <Analytics />
         </QueryClientProvider>
       </SessionProvider>
-    </>
+    </ThemeProvider>
   );
 };
 

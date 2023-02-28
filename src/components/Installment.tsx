@@ -35,14 +35,14 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
       setIsConfettiActive(false);
       await queryClient.invalidateQueries();
     } catch (error) {
-      log.error("Error: pay installment", {error});
+      log.error("Error: pay installment", { error });
     }
   }
 
   return (
     <motion.div
       key={installment.id}
-      className="relative z-50 flex flex-grow cursor-pointer flex-col items-center rounded-lg bg-white p-4"
+      className="relative z-50 flex flex-grow cursor-pointer flex-col items-center rounded-lg bg-white p-4 dark:border-2 dark:border-gray-800 dark:bg-gray-900"
       onClick={async () => {
         !installment.payed && setIsConfettiActive(true);
         return handlePayInstallment(installment.id, !installment.payed);
@@ -55,7 +55,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
           <RiErrorWarningLine className="fill-red-400" />
         )}
       </div>
-      <p className="text-gray-900">
+      <p className="text-gray-900 dark:text-white">
         {installment.value.toLocaleString("pt-br", {
           style: "currency",
           currency: "BRL",

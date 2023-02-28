@@ -53,7 +53,9 @@ const Button = ({
       type={type}
       className={`flex h-11 ${
         isFullWidth ? "w-full" : "w-fit"
-      } items-center justify-center gap-2 ${getVariant(variant)}`}
+      } items-center justify-center gap-2 ${getVariant(variant)} ${
+        variant === "solid" ? "dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100" : ""
+      }`}
       {...props}
     >
       {!!icon && <Icon size={20} />}

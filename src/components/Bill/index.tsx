@@ -34,15 +34,15 @@ const Bill = ({ bill }: BillProps) => {
       await deleteBill.mutateAsync({ billId: id });
       await refetch();
     } catch (error) {
-      log.error("Error: delete bill", {error});
+      log.error("Error: delete bill", { error });
     }
   }
 
   return (
-    <div key={bill.id} className="relative flex flex-col -z-0">
-      <div className="relative z-50 flex h-fit flex-wrap justify-between gap-2 rounded-md bg-white p-4 py-4 md:h-24 md:flex-nowrap">
+    <div key={bill.id} className="relative -z-0 flex flex-col">
+      <div className="relative z-50 flex h-fit flex-wrap justify-between gap-2 rounded-md bg-white p-4 py-4 dark:border-2 dark:border-gray-800 dark:bg-gray-900 md:h-24 md:flex-nowrap">
         <div className="flex flex-col justify-between">
-          <p className="truncate text-xl font-medium text-gray-800">
+          <p className="truncate text-xl font-medium text-gray-800 dark:text-white">
             {bill.title}
           </p>
           <div className="flex items-center gap-4">
@@ -100,7 +100,7 @@ const Bill = ({ bill }: BillProps) => {
         <div className="flex items-center justify-center">
           <button
             onClick={() => handleDeleteBill(bill.id)}
-            className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-gray-100 hover:bg-red-100"
+            className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-gray-100 hover:bg-red-100 dark:border-gray-800"
           >
             <RiDeleteBin2Line className="fill-red-600" />
           </button>

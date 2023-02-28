@@ -42,7 +42,7 @@ const Input = ({
   return (
     <input
       type="text"
-      className={`min-w-xs ${
+      className={`min-w-xs dark:border-gray-800 dark:bg-gray-900  ${
         isFullWidth ? "w-full" : "w-80"
       } h-11 rounded-lg border-2 px-4 py-4 font-normal shadow-sm placeholder:font-normal focus:border-gray-400 focus:outline-none focus:ring focus:ring-gray-300`}
       {...props}
