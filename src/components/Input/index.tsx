@@ -7,7 +7,7 @@ interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   leftAddormentIcon?: IconType;
   // variant?: "solid" | "ghost" | "destructive";
   isFullWidth?: boolean;
-  error: FieldError;
+  error?: FieldError;
 }
 
 const ghostVariant =

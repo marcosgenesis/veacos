@@ -2,7 +2,7 @@ import React from "react";
 import type { IconType } from "react-icons";
 import { Spinner } from "../Spinner";
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
-  icon: IconType;
+  icon?: IconType;
   isLoading?: boolean;
   variant?: "solid" | "ghost" | "destructive" | "tertiary";
   isFullWidth?: boolean;
@@ -67,7 +67,7 @@ const Button = ({
         <Spinner />
       ) : (
         <>
-          {!!icon && <Icon size={20} />}
+          {!!Icon && <Icon size={20} />}
           {children}
         </>
       )}

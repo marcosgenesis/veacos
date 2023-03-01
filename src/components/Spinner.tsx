@@ -1,12 +1,10 @@
-export function Spinner(props) {
-  let { value, minValue = 0, maxValue = 100 } = props;
-
-  let center = 16;
-  let strokeWidth = 4;
-  let r = 16 - strokeWidth;
-  let c = 2 * r * Math.PI;
-  let percentage = 0.25;
-  let offset = c - percentage * c;
+export const Spinner = () => {
+  const center = 16;
+  const strokeWidth = 4;
+  const r = 16 - strokeWidth;
+  const c = 2 * r * Math.PI;
+  const percentage = 0.25;
+  const offset = c - percentage * c;
 
   return (
     <svg
@@ -39,4 +37,4 @@ export function Spinner(props) {
       </circle>
     </svg>
   );
-}
+};

@@ -6,18 +6,13 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import {
-  RiAddLine,
-  RiArrowLeftLine,
-  RiArrowRightLine,
-  RiSubtractLine,
-} from "react-icons/ri";
+import { RiAddLine, RiArrowLeftLine, RiSubtractLine } from "react-icons/ri";
 import Button from "../components/Button";
 import { Input } from "../components/Input";
 import * as z from "zod";
-import { api, RouterInputs } from "../utils/api";
+import { api } from "../utils/api";
 
-type Bill = RouterInputs["bill"]["createBill"];
+type Bill = z.infer<typeof createBillSchema>;
 
 const createBillSchema = z.object({
   title: z.string().min(3),
@@ -29,14 +24,12 @@ const Create: NextPage = () => {
   const { data: sessionData } = useSession();
   const createBill = api.bill.createBill.useMutation();
   const [qtdInstallments, setQtdInstallments] = useState(1);
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState } = useForm<Bill>({
     resolver: zodResolver(createBillSchema),
   });
   const router = useRouter();
 
-  const handleCreateSubmit: SubmitHandler<
-    z.infer<typeof createBillSchema>
-  > = async (date) => {
+  const handleCreateSubmit: SubmitHandler<Bill> = async (date) => {
     try {
       await createBill.mutateAsync({
         debtor: date.debtor,

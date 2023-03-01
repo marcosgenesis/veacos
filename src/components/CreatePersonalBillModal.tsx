@@ -12,8 +12,6 @@ import { Input } from "./Input";
 import * as z from "zod";
 import { useQueryClient } from "@tanstack/react-query";
 
-type Bill = RouterInputs["bill"]["createBill"];
-
 interface CreatePersonalBillModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,6 +24,7 @@ const createBillSchema = z.object({
     .nonnegative("O valor precisa ser positivo")
     .gte(1, "O valor precisa ser maior que 0"),
 });
+type Bill = z.infer<typeof createBillSchema>;
 
 const CreatePersonalBillModal = ({
   isOpen,
@@ -33,15 +32,13 @@ const CreatePersonalBillModal = ({
 }: CreatePersonalBillModalProps) => {
   const { data: sessionData } = useSession();
   const [qtdInstallments, setQtdInstallments] = useState(1);
-  const { register, handleSubmit, reset, formState } = useForm({
+  const { register, handleSubmit, reset, formState } = useForm<Bill>({
     resolver: zodResolver(createBillSchema),
   });
   const queryClient = useQueryClient();
   const createBill = api.bill.createBill.useMutation();
 
-  const handleCreateSubmit: SubmitHandler<
-    z.infer<typeof createBillSchema>
-  > = async (data) => {
+  const handleCreateSubmit: SubmitHandler<Bill> = async (data) => {
     try {
       await createBill.mutateAsync({
         debtor: data.debtor,
