@@ -33,7 +33,7 @@ export const Profile = () => {
         <HoverCard.Content
           side="top"
           align="start"
-          className="w-[300px] rounded-md bg-white p-5 shadow-lg data-[side=right]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all"
+          className="w-[300px] rounded-md bg-white dark:bg-gray-800 p-5 shadow-lg data-[side=right]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all"
           sideOffset={5}
         >
           <div className=" flex flex-col gap-8">

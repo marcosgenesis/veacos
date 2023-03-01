@@ -1,7 +1,9 @@
 import React from "react";
 import type { IconType } from "react-icons";
+import { Spinner } from "../Spinner";
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   icon: IconType;
+  isLoading?: boolean;
   variant?: "solid" | "ghost" | "destructive" | "tertiary";
   isFullWidth?: boolean;
 }
@@ -41,6 +43,7 @@ function getVariant(variant: string) {
 const Button = ({
   children,
   icon,
+  isLoading = false,
   variant = "ghost",
   isFullWidth = false,
   type,
@@ -54,12 +57,20 @@ const Button = ({
       className={`flex h-11 ${
         isFullWidth ? "w-full" : "w-fit"
       } items-center justify-center gap-2 ${getVariant(variant)} ${
-        variant === "solid" ? "dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100" : ""
+        variant === "solid"
+          ? "dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+          : ""
       }`}
       {...props}
     >
-      {!!icon && <Icon size={20} />}
-      {children}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {!!icon && <Icon size={20} />}
+          {children}
+        </>
+      )}
     </button>
   );
 };

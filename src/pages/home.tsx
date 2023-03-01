@@ -11,7 +11,7 @@ import { GetServerSideProps } from "next";
 import Button from "../components/Button";
 import Head from "next/head";
 import { getServerAuthSession } from "../server/auth";
-import Input from "../components/Input";
+import { Input } from "../components/Input";
 
 const Home: React.FC = () => {
   const [searchItem, setSearchItem] = useState("");

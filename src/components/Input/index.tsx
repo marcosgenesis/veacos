@@ -1,9 +1,13 @@
-import React from "react";
+import React, { forwardRef } from "react";
+import type { ForwardRefRenderFunction } from "react";
 import type { IconType } from "react-icons";
-interface ButtonProps extends React.ComponentPropsWithoutRef<"input"> {
+import type { FieldError } from "react-hook-form";
+import { RiErrorWarningLine } from "react-icons/ri";
+interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   leftAddormentIcon?: IconType;
   // variant?: "solid" | "ghost" | "destructive";
   isFullWidth?: boolean;
+  error: FieldError;
 }
 
 const ghostVariant =
@@ -32,22 +36,34 @@ function getVariant(variant: string) {
   }
 }
 
-const Input = ({
-  leftAddormentIcon,
-  isFullWidth = false,
-  ...props
-}: ButtonProps) => {
+const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+  { leftAddormentIcon, isFullWidth, error, ...props },
+  ref
+) => {
   const Icon = leftAddormentIcon;
 
   return (
-    <input
-      type="text"
-      className={`min-w-xs dark:border-gray-800 dark:bg-gray-900  ${
-        isFullWidth ? "w-full" : "w-80"
-      } h-11 rounded-lg border-2 px-4 py-4 font-normal shadow-sm placeholder:font-normal focus:border-gray-400 focus:outline-none focus:ring focus:ring-gray-300`}
-      {...props}
-    />
+    <>
+      <input
+        ref={ref}
+        type="text"
+        className={`min-w-xs dark:border-gray-800 dark:bg-gray-900  ${
+          isFullWidth ? "w-full" : "w-50"
+        } h-11 rounded-lg border-2 px-4 py-4 font-normal shadow-sm placeholder:font-normal ${
+          !!error
+            ? "focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300"
+            : "focus:border-gray-400 focus:outline-none focus:ring focus:ring-gray-300"
+        }`}
+        {...props}
+      />
+      {error && (
+        <div className="flex items-center gap-2 text-red-500 dark:text-red-400 text-sm">
+          <RiErrorWarningLine />
+          <p>{error.message}</p>
+        </div>
+      )}
+    </>
   );
 };
 
-export default Input;
+export const Input = forwardRef(InputBase);

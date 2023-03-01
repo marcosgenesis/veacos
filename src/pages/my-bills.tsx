@@ -4,7 +4,7 @@ import { RiAddLine } from "react-icons/ri";
 import Bill from "../components/Bill";
 import Button from "../components/Button";
 import CreatePersonalBillModal from "../components/CreatePersonalBillModal";
-import Input from "../components/Input";
+import { Input } from "../components/Input";
 import Sidebar from "../components/Sidebar";
 import { api } from "../utils/api";
 
@@ -21,7 +21,7 @@ const MyBills: React.FC = () => {
   );
 
   return (
-    <main className="flex min-h-screen flex-col bg-gray-100 md:flex-row">
+    <main className="flex min-h-screen flex-col bg-gray-100 md:flex-row  dark:bg-gray-900">
       <Sidebar />
       <div className="w-full">
         <div>
@@ -35,7 +35,7 @@ const MyBills: React.FC = () => {
               Criar dívida
             </Button>
           </div>
-          <div className="hidden justify-between bg-white p-6 shadow-sm md:flex">
+          <div className="hidden justify-between bg-white p-6 shadow-sm md:flex dark:border-b-2 dark:border-gray-800 dark:bg-gray-900">
             <div className="flex flex-col">
               <p className="text-xl font-medium">Quem eu devo</p>
               <p className="text-sm text-gray-400">
@@ -62,7 +62,7 @@ const MyBills: React.FC = () => {
         </div>
         <div className="m-4 flex flex-col gap-8">
           {isSuccess && bills.length === 0 && (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-center">
               <Image
                 src="/empty.png"
                 alt="Empty Bills"
@@ -70,7 +70,7 @@ const MyBills: React.FC = () => {
                 height={100}
                 className="mb-4"
               />
-              <p className="font-medium text-gray-800">
+              <p className="font-medium text-gray-800 dark:text-white">
                 Nenhuma dívida cadastrada!
               </p>
               <p className="text-sm font-normal text-gray-400">

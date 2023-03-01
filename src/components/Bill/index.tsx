@@ -6,6 +6,7 @@ import React from "react";
 import { RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
 import { api, RouterOutputs } from "../../utils/api";
 import Installment from "../Installment";
+import { Spinner } from "../Spinner";
 
 type Bill = RouterOutputs["bill"]["getAllFromUser"];
 
@@ -24,15 +25,12 @@ interface BillProps {
 }
 const Bill = ({ bill }: BillProps) => {
   const deleteBill = api.bill.deleteBill.useMutation();
-  const { refetch } = api.bill.getAllFromUser.useQuery({
-    search: "",
-    isPersonal: false,
-  });
+  const queryClient = useQueryClient();
 
   async function handleDeleteBill(id: string) {
     try {
       await deleteBill.mutateAsync({ billId: id });
-      await refetch();
+      await queryClient.invalidateQueries();
     } catch (error) {
       log.error("Error: delete bill", { error });
     }
@@ -102,7 +100,11 @@ const Bill = ({ bill }: BillProps) => {
             onClick={() => handleDeleteBill(bill.id)}
             className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-gray-100 hover:bg-red-100 dark:border-gray-800"
           >
-            <RiDeleteBin2Line className="fill-red-600" />
+            {deleteBill.isLoading ? (
+              <Spinner />
+            ) : (
+              <RiDeleteBin2Line className="fill-red-600" />
+            )}
           </button>
         </div>
       </div>
