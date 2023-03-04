@@ -103,16 +103,6 @@ const Bill = ({ bill }: BillProps) => {
           >
             <RiDeleteBin2Line />
           </IconButton>
-          {/* <button
-            onClick={() => handleDeleteBill(bill.id)}
-            className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-gray-100 hover:bg-red-100 dark:border-gray-800"
-          >
-            {deleteBill.isLoading ? (
-              <Spinner />
-            ) : (
-              <RiDeleteBin2Line className="fill-red-600" />
-            )}
-          </button> */}
         </div>
       </div>
 
