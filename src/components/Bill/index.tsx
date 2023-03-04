@@ -3,8 +3,9 @@ import { formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { log } from "next-axiom";
 import React from "react";
-import { RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
+import { RiDeleteBin2Fill, RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
 import { api, RouterOutputs } from "../../utils/api";
+import { IconButton } from "../IconButton";
 import Installment from "../Installment";
 import { Spinner } from "../Spinner";
 
@@ -96,7 +97,13 @@ const Bill = ({ bill }: BillProps) => {
           </div>
         )}
         <div className="flex items-center justify-center">
-          <button
+          <IconButton
+            onClick={() => handleDeleteBill(bill.id)}
+            isLoading={deleteBill.isLoading}
+          >
+            <RiDeleteBin2Line />
+          </IconButton>
+          {/* <button
             onClick={() => handleDeleteBill(bill.id)}
             className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-gray-100 hover:bg-red-100 dark:border-gray-800"
           >
@@ -105,7 +112,7 @@ const Bill = ({ bill }: BillProps) => {
             ) : (
               <RiDeleteBin2Line className="fill-red-600" />
             )}
-          </button>
+          </button> */}
         </div>
       </div>
 
