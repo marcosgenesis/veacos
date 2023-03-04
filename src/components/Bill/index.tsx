@@ -2,12 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { log } from "next-axiom";
-import React from "react";
-import { RiDeleteBin2Fill, RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
-import { api, RouterOutputs } from "../../utils/api";
+import { RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
+import { api, type RouterOutputs } from "../../utils/api";
 import { IconButton } from "../IconButton";
 import Installment from "../Installment";
-import { Spinner } from "../Spinner";
 
 type Bill = RouterOutputs["bill"]["getAllFromUser"];
 
