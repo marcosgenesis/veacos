@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Installment } from "@prisma/client";
 import { api } from "../utils/api";
 import { RiCheckLine, RiErrorWarningLine } from "react-icons/ri";
-import Confetti, { ConfettiConfig } from "react-dom-confetti";
+import Confetti, { type ConfettiConfig } from "react-dom-confetti";
 import { useQueryClient } from "@tanstack/react-query";
 import { log } from "next-axiom";
 

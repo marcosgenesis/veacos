@@ -22,6 +22,7 @@
     "@trpc/react-query": "^10.8.1",
     "@trpc/server": "^10.8.1",
     "@vercel/analytics": "^0.1.10",
+    "class-variance-authority": "^0.4.0",
     "date-fns": "^2.29.3",
     "framer-motion": "^8.5.2",
     "next": "13.1.1",
@@ -34,6 +35,7 @@
     "react-hook-form": "^7.42.1",
     "react-icons": "^4.7.1",
     "superjson": "1.9.1",
+    "tailwind-merge": "^1.10.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {

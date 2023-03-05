@@ -1,12 +1,18 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { formatDistance } from "date-fns";
+import { motion } from "framer-motion";
 import { ptBR } from "date-fns/locale";
 import { log } from "next-axiom";
-import React from "react";
-import { RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
-import { api, RouterOutputs } from "../../utils/api";
+import {
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiDeleteBin2Line,
+  RiUserLine,
+} from "react-icons/ri";
+import { useDisclosure } from "../../hooks/useDisclosure";
+import { api, type RouterOutputs } from "../../utils/api";
+import { IconButton } from "../IconButton";
 import Installment from "../Installment";
-import { Spinner } from "../Spinner";
 
 type Bill = RouterOutputs["bill"]["getAllFromUser"];
 
@@ -26,6 +32,7 @@ interface BillProps {
 const Bill = ({ bill }: BillProps) => {
   const deleteBill = api.bill.deleteBill.useMutation();
   const queryClient = useQueryClient();
+  const { isOpen, toggle } = useDisclosure(false);
 
   async function handleDeleteBill(id: string) {
     try {
@@ -95,25 +102,30 @@ const Bill = ({ bill }: BillProps) => {
             <p className="text-xs uppercase text-gray-400">Ainda faltam</p>
           </div>
         )}
-        <div className="flex items-center justify-center">
-          <button
+        <div className="flex flex-col items-center justify-center gap-2">
+          <IconButton
+            destructive
+            variant={"secundary-gray"}
             onClick={() => handleDeleteBill(bill.id)}
-            className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-gray-100 hover:bg-red-100 dark:border-gray-800"
+            isLoading={deleteBill.isLoading}
           >
-            {deleteBill.isLoading ? (
-              <Spinner />
-            ) : (
-              <RiDeleteBin2Line className="fill-red-600" />
-            )}
-          </button>
+            <RiDeleteBin2Line />
+          </IconButton>
+          <IconButton onClick={() => toggle()}>
+            {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+          </IconButton>
         </div>
       </div>
 
-      <div className="relative mt-2 flex flex-wrap gap-4">
-        {bill.installment.map((installment) => (
-          <Installment key={installment.id} installment={installment} />
-        ))}
-      </div>
+      {isOpen && (
+        <motion.div
+          className="relative mt-2 flex flex-wrap gap-4"
+        >
+          {bill.installment.map((installment) => (
+            <Installment key={installment.id} installment={installment} />
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 };

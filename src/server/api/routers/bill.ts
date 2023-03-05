@@ -66,6 +66,9 @@ export const billRouter = createTRPCRouter({
           ],
         },
         include: { installment: true },
+        orderBy: {
+          created_at: "desc",
+        },
       });
 
       return bills.map((bill) => {
