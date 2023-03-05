@@ -1,8 +1,15 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { formatDistance } from "date-fns";
+import { motion } from "framer-motion";
 import { ptBR } from "date-fns/locale";
 import { log } from "next-axiom";
-import { RiDeleteBin2Line, RiUserLine } from "react-icons/ri";
+import {
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiDeleteBin2Line,
+  RiUserLine,
+} from "react-icons/ri";
+import { useDisclosure } from "../../hooks/useDisclosure";
 import { api, type RouterOutputs } from "../../utils/api";
 import { IconButton } from "../IconButton";
 import Installment from "../Installment";
@@ -25,6 +32,7 @@ interface BillProps {
 const Bill = ({ bill }: BillProps) => {
   const deleteBill = api.bill.deleteBill.useMutation();
   const queryClient = useQueryClient();
+  const { isOpen, toggle } = useDisclosure(false);
 
   async function handleDeleteBill(id: string) {
     try {
@@ -94,21 +102,30 @@ const Bill = ({ bill }: BillProps) => {
             <p className="text-xs uppercase text-gray-400">Ainda faltam</p>
           </div>
         )}
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-2">
           <IconButton
+            destructive
+            variant={"secundary-gray"}
             onClick={() => handleDeleteBill(bill.id)}
             isLoading={deleteBill.isLoading}
           >
             <RiDeleteBin2Line />
           </IconButton>
+          <IconButton onClick={() => toggle()}>
+            {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+          </IconButton>
         </div>
       </div>
 
-      <div className="relative mt-2 flex flex-wrap gap-4">
-        {bill.installment.map((installment) => (
-          <Installment key={installment.id} installment={installment} />
-        ))}
-      </div>
+      {isOpen && (
+        <motion.div
+          className="relative mt-2 flex flex-wrap gap-4"
+        >
+          {bill.installment.map((installment) => (
+            <Installment key={installment.id} installment={installment} />
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 };

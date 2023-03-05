@@ -56,7 +56,8 @@ const button = cva(
       {
         destructive: true,
         variant: "secundary-gray",
-        class: "bg-transparent text-red-700 border-red-300 hover:bg-red-100 hover:text-red-600 focus:ring-red-100 ",
+        class:
+          "bg-transparent text-red-700 border-red-300 hover:bg-red-100 hover:text-red-600 focus:ring-red-100 ",
       },
     ],
     defaultVariants: {
@@ -78,13 +79,12 @@ export const IconButton = ({
   isLoading = false,
   variant,
   size,
+  destructive,
   ...props
 }: IconButtonProps) => {
   return (
     <button
-      className={twMerge(
-        button({ variant: "secundary-gray", size, destructive: true })
-      )}
+      className={twMerge(button({ variant, size, destructive }))}
       {...props}
     >
       {isLoading ? <Spinner /> : children}
