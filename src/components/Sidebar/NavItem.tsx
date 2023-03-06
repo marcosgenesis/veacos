@@ -16,11 +16,8 @@ const navItem = cva(
   {
     variants: {
       active: {
-        true: ['bg-gray-100','text-gray-900']
+        true: ["bg-gray-100", "text-gray-900"],
       },
-    },
-    defaultVariants: {
-      ative: false,
     },
   }
 );
