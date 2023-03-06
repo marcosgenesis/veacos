@@ -13,8 +13,8 @@ export const Profile = () => {
           {sessionData?.user && sessionData?.user.image ? (
             <Image
               src={sessionData.user.image}
-              width={50}
-              height={50}
+              width={32}
+              height={32}
               alt="User Profile"
               className="rounded-full"
             />
