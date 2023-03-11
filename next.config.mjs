@@ -5,6 +5,7 @@
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
 import { withAxiom } from "next-axiom";
+import nextPwa from "next-pwa";
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -18,4 +19,15 @@ const config = {
     domains: ["lh3.googleusercontent.com"],
   },
 };
-export default withAxiom(config);
+
+const withPWA = nextPwa({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
+
+const nextConfig = withPWA({
+  reactStrictMode: true,
+});
+
+export default nextConfig;

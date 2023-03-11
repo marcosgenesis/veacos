@@ -22,6 +22,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
+          <Head>
+            <link rel="manifest" href="/manifest.json" />
+          </Head>
           <Analytics />
         </QueryClientProvider>
       </SessionProvider>
