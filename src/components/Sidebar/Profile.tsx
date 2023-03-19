@@ -24,8 +24,8 @@ export const Profile = () => {
             </div>
           )}
           <div>
-            <p className="font-medium">{sessionData?.user?.name}</p>
-            <p className="text-xs text-gray-400">{sessionData?.user?.email}</p>
+            <p className="font-medium text-gray-900">{sessionData?.user?.name}</p>
+            {/* <p className="text-xs text-gray-400">{sessionData?.user?.email}</p> */}
           </div>
         </div>
       </HoverCard.Trigger>

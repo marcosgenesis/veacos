@@ -7,6 +7,9 @@ import {
   RiArrowDownSLine,
   RiArrowUpSLine,
   RiDeleteBin2Line,
+  RiMoneyDollarBoxLine,
+  RiMoneyDollarCircleFill,
+  RiMoneyDollarCircleLine,
   RiUserLine,
 } from "react-icons/ri";
 import { useDisclosure } from "../../hooks/useDisclosure";
@@ -44,28 +47,52 @@ const Bill = ({ bill }: BillProps) => {
   }
 
   return (
-    <div key={bill.id} className="relative -z-0 flex flex-col">
-      <div className="relative z-50 flex h-fit flex-wrap justify-between gap-2 rounded-md bg-white p-4 py-4 dark:border-2 dark:border-gray-800 dark:bg-gray-900 md:h-24 md:flex-nowrap">
+    <div className="relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md border-[1px] border-gray-100 bg-white p-2 shadow-sm dark:border-2 dark:border-gray-800 dark:bg-gray-900 md:flex-nowrap">
+      <div className="flex justify-between gap-4 rounded-md bg-gray-50 p-4">
         <div className="flex flex-col justify-between">
           <p className="truncate text-xl font-medium text-gray-800 dark:text-white">
             {bill.title}
           </p>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center">
-              <RiUserLine className="fill-gray-400" />
-              <p className="text-sm  font-medium text-gray-400">
+          <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-2 rounded-full bg-gray-100 px-2 py-1">
+              <RiUserLine className="fill-gray-500" />
+              <p className="text-sm  font-medium text-gray-800">
                 {bill.debtor}
               </p>
             </div>
-            <p className="text-sm text-gray-400">
-              {`Criada ${formatDistance(bill.created_at, new Date(), {
-                addSuffix: true,
-                locale: ptBR,
-              })}`}
-            </p>
+            <div className="flex items-center justify-center gap-2 rounded-full bg-red-100 px-2 py-1">
+              <RiMoneyDollarCircleFill className="fill-red-500" />
+              <p className="text-sm  font-medium text-red-800">
+                {bill.total.toLocaleString("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </p>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-2">
+          <IconButton
+            destructive
+            variant={"secundary-gray"}
+            onClick={() => handleDeleteBill(bill.id)}
+            isLoading={deleteBill.isLoading}
+          >
+            <RiDeleteBin2Line />
+          </IconButton>
+          <IconButton onClick={() => toggle()}>
+            {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+          </IconButton>
+        </div>
+      </div>
+      {isOpen && (
+        <motion.div className="relative mt-2 flex flex-wrap gap-4">
+          {bill.installment.map((installment) => (
+            <Installment key={installment.id} installment={installment} />
+          ))}
+        </motion.div>
+      )}
+      {/* <div className="flex flex-col items-center justify-center">
           <div className="flex gap-1">
             <p className="">
               {bill.payed.toLocaleString("pt-br", {
@@ -82,8 +109,8 @@ const Bill = ({ bill }: BillProps) => {
             </p>
           </div>
           <p className="text-xs uppercase text-gray-400">ganho/previsto</p>
-        </div>
-        {bill.total === bill.payed ? (
+        </div> */}
+      {/* {bill.total === bill.payed ? (
           <div className="flex items-center">
             <div className="flex h-8 items-center rounded-lg border-2 border-green-200 bg-green-100 p-3">
               <p className="text-sm font-medium text-green-600">
@@ -101,31 +128,7 @@ const Bill = ({ bill }: BillProps) => {
             </p>
             <p className="text-xs uppercase text-gray-400">Ainda faltam</p>
           </div>
-        )}
-        <div className="flex flex-col items-center justify-center gap-2">
-          <IconButton
-            destructive
-            variant={"secundary-gray"}
-            onClick={() => handleDeleteBill(bill.id)}
-            isLoading={deleteBill.isLoading}
-          >
-            <RiDeleteBin2Line />
-          </IconButton>
-          <IconButton onClick={() => toggle()}>
-            {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-          </IconButton>
-        </div>
-      </div>
-
-      {isOpen && (
-        <motion.div
-          className="relative mt-2 flex flex-wrap gap-4"
-        >
-          {bill.installment.map((installment) => (
-            <Installment key={installment.id} installment={installment} />
-          ))}
-        </motion.div>
-      )}
+        )} */}
     </div>
   );
 };

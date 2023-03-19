@@ -5,11 +5,11 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
-export { reportWebVitals } from "next-axiom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
-import Head from "next/head";
+import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
+export { reportWebVitals } from "next-axiom";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +23,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
           <Analytics />
+          <Toaster />
         </QueryClientProvider>
       </SessionProvider>
     </ThemeProvider>

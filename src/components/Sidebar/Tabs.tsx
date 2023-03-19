@@ -20,7 +20,7 @@ const MobileTabs: React.FC = () => {
             items-center justify-center 
             rounded-lg px-5 text-[15px]
             font-medium leading-none
-          data-[state=active]:bg-gray-50
+          data-[state=active]:bg-white
           data-[state=inactive]:bg-gray-100
           dark:data-[state=inactive]:bg-gray-900 
           data-[state=active]:text-gray-800 
@@ -38,7 +38,7 @@ const MobileTabs: React.FC = () => {
           items-center justify-center 
           rounded-lg px-5 text-[15px]
           font-medium leading-none
-          data-[state=active]:bg-gray-50
+          data-[state=active]:bg-white
           data-[state=inactive]:bg-gray-100 
           dark:data-[state=inactive]:bg-gray-900 
           data-[state=active]:text-gray-800 

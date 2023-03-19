@@ -42,7 +42,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
   return (
     <motion.div
       key={installment.id}
-      className="relative z-50 flex flex-grow cursor-pointer flex-col items-center rounded-lg bg-white p-4 dark:border-2 dark:border-gray-800 dark:bg-gray-900"
+      className="relative flex flex-grow cursor-pointer flex-col items-center rounded-lg hover:bg-gray-50 p-4 dark:border-2 dark:border-gray-800 dark:bg-gray-900"
       onClick={async () => {
         !installment.payed && setIsConfettiActive(true);
         return handlePayInstallment(installment.id, !installment.payed);
