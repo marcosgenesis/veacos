@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { log } from "next-axiom";
-import React, { useState } from "react";
+import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { RiAddLine, RiCloseLine, RiSubtractLine } from "react-icons/ri";
-import type { RouterInputs } from "../utils/api";
 import { api } from "../utils/api";
 import Button from "./Button";
 import { Input } from "./Input";

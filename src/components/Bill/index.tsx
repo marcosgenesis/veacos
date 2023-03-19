@@ -1,16 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { formatDistance } from "date-fns";
 import { motion } from "framer-motion";
-import { ptBR } from "date-fns/locale";
 import { log } from "next-axiom";
 import {
   RiArrowDownSLine,
   RiArrowUpSLine,
-  RiDeleteBin2Line,
-  RiMoneyDollarBoxLine,
-  RiMoneyDollarCircleFill,
-  RiMoneyDollarCircleLine,
-  RiUserLine,
+  RiDeleteBin2Line, RiMoneyDollarCircleFill, RiUserLine
 } from "react-icons/ri";
 import { useDisclosure } from "../../hooks/useDisclosure";
 import { api, type RouterOutputs } from "../../utils/api";
