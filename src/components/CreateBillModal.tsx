@@ -15,8 +15,6 @@ import { IconButton } from "./IconButton";
 import { toast } from "sonner";
 
 interface CreateBillModalProps {
-  isOpen: boolean;
-  onClose: () => void;
   isPersonal?: boolean;
 }
 const createBillSchema = z.object({
@@ -29,11 +27,7 @@ const createBillSchema = z.object({
 });
 type Bill = z.infer<typeof createBillSchema>;
 
-const CreateBillModal = ({
-  isOpen,
-  onClose,
-  isPersonal = false,
-}: CreateBillModalProps) => {
+const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   const { data: sessionData } = useSession();
   const [qtdInstallments, setQtdInstallments] = useState(1);
   const { register, handleSubmit, formState } = useForm<Bill>({
@@ -54,7 +48,6 @@ const CreateBillModal = ({
       });
       await queryClient.invalidateQueries();
       toast.success("Dívida criada");
-      onClose();
     } catch (error) {
       log.error("Error: create personal bill", { error, data });
     }
@@ -63,7 +56,9 @@ const CreateBillModal = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button isFullWidth icon={RiAddLine}>Criar dívida</Button>
+        <Button isFullWidth icon={RiAddLine}>
+          Criar dívida
+        </Button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-black/50 backdrop-blur-sm" />

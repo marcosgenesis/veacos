@@ -4,7 +4,6 @@ import { RiAddLine } from "react-icons/ri";
 import Bill from "../components/Bill";
 import Button from "../components/Button";
 import CreateBillModal from "../components/CreateBillModal";
-import CreatePersonalBillModal from "../components/CreatePersonalBillModal";
 import { Header } from "../components/Header";
 import { Input } from "../components/Input";
 import Layout from "../components/Layout";

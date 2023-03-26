@@ -2,7 +2,11 @@ import Head from "next/head";
 import React from "react";
 import Sidebar from "./Sidebar";
 
-const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <main className="flex items-center justify-center">
       <Head>
