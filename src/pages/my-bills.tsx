@@ -1,11 +1,8 @@
 import Image from "next/image";
-import React, { useState } from "react";
-import { RiAddLine } from "react-icons/ri";
+import React from "react";
 import Bill from "../components/Bill";
-import Button from "../components/Button";
 import CreateBillModal from "../components/CreateBillModal";
 import { Header } from "../components/Header";
-import { Input } from "../components/Input";
 import Layout from "../components/Layout";
 import MobileTabs from "../components/Sidebar/Tabs";
 import { api } from "../utils/api";
