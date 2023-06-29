@@ -42,7 +42,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
   return (
     <motion.div
       key={installment.id}
-      className="relative flex flex-grow cursor-pointer flex-col items-center rounded-lg hover:bg-gray-50 p-4 dark:border-2 dark:border-gray-800 dark:bg-gray-900"
+      className="relative flex flex-grow cursor-pointer flex-col items-center rounded-lg p-4 hover:bg-gray-50   "
       onClick={async () => {
         !installment.payed && setIsConfettiActive(true);
         return handlePayInstallment(installment.id, !installment.payed);
@@ -55,7 +55,7 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
           <RiErrorWarningLine className="fill-red-400" />
         )}
       </div>
-      <p className="text-gray-900 dark:text-white">
+      <p className="text-gray-900 ">
         {installment.value.toLocaleString("pt-br", {
           style: "currency",
           currency: "BRL",

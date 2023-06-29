@@ -77,7 +77,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
             <div className="mt-4">
               <label
                 htmlFor="title"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-gray-900 "
               >
                 Título da dívida
               </label>
@@ -94,7 +94,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
             <div className="mt-4">
               <label
                 htmlFor="debtor"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                className="mb-2 block text-sm font-medium text-gray-900 "
               >
                 {isPersonal ? "Pra quem estou devendo?" : "Nome do veaco"}
               </label>
@@ -112,7 +112,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
               <div className="mt-4">
                 <label
                   htmlFor="value"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Valor que o veaco de deve
                 </label>
@@ -130,7 +130,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
               <div className="mt-4 flex w-full items-center justify-center gap-4 md:w-fit">
                 <label
                   htmlFor="first_name"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Em quantas vezes?
                 </label>
@@ -140,7 +140,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
                     onClick={() =>
                       setQtdInstallments((old) => (old !== 1 ? old - 1 : old))
                     }
-                    className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4 dark:bg-white dark:text-black"
+                    className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4  "
                   >
                     <RiSubtractLine size={20} />
                     <span className="sr-only">Icon description</span>
@@ -151,7 +151,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
                   <button
                     type="button"
                     onClick={() => setQtdInstallments((old) => old + 1)}
-                    className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4 dark:bg-white dark:text-black"
+                    className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4  "
                   >
                     <RiAddLine size={20} />
                     <span className="sr-only">Icon description</span>

@@ -35,7 +35,7 @@ const MyBills: React.FC = () => {
               height={100}
               className="mb-4"
             />
-            <p className="font-medium text-gray-800 dark:text-white">
+            <p className="font-medium text-gray-800 ">
               Nenhuma dívida cadastrada!
             </p>
             <p className="text-sm font-normal text-gray-400">

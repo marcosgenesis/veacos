@@ -47,7 +47,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
       <input
         ref={ref}
         type="text"
-        className={`min-w-xs dark:border-gray-800 dark:bg-gray-900  ${
+        className={`min-w-xs    ${
           isFullWidth ? "w-full" : "w-50"
         } h-11 rounded-lg border-2 px-4 py-4 font-normal shadow-sm placeholder:font-normal ${
           !!error
@@ -57,7 +57,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         {...props}
       />
       {error && (
-        <div className="flex items-center gap-2 text-red-500 dark:text-red-400 text-sm">
+        <div className="flex items-center gap-2 text-red-500  text-sm">
           <RiErrorWarningLine />
           <p>{error.message}</p>
         </div>

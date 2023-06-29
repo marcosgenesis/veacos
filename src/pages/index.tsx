@@ -13,15 +13,20 @@ const Home: NextPage = () => {
       <Head>
         <title>Bem vindo | Veacos</title>
       </Head>
-      <main className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-800">
-        <div className="flex flex-col gap-4 rounded-md bg-white dark:bg-gray-900 p-8 text-center">
+      <main className="flex h-screen items-center justify-center bg-gray-100 ">
+        <div className="flex flex-col gap-4 rounded-md bg-white  p-8 text-center">
           <div>
             <h3 className="text-3xl font-medium">Bem vindo a Veacos</h3>
             <p className="text-gray-400">
               Gerencie quem te deve e a quem você deve
             </p>
           </div>
-          <Button icon={RiGoogleFill} onClick={() => signIn("google")} isFullWidth variant="solid">
+          <Button
+            icon={RiGoogleFill}
+            onClick={() => signIn("google")}
+            isFullWidth
+            variant="solid"
+          >
             Entrar
           </Button>
         </div>

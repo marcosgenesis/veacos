@@ -10,7 +10,7 @@ const MobileTabs: React.FC = () => {
       defaultValue={router.pathname}
     >
       <Tabs.List
-        className="flex gap-2 rounded-xl border-2 border-gray-200 bg-gray-100 dark:bg-gray-900 dark:border-gray-800 p-1"
+        className="flex gap-2 rounded-xl border-2 border-gray-200 bg-gray-100   p-1"
         aria-label="Manage your account"
       >
         <Tabs.Trigger
@@ -22,7 +22,6 @@ const MobileTabs: React.FC = () => {
             font-medium leading-none
           data-[state=active]:bg-white
           data-[state=inactive]:bg-gray-100
-          dark:data-[state=inactive]:bg-gray-900 
           data-[state=active]:text-gray-800 
           data-[state=inactive]:text-gray-600 
             data-[state=active]:shadow-md"
@@ -40,7 +39,6 @@ const MobileTabs: React.FC = () => {
           font-medium leading-none
           data-[state=active]:bg-white
           data-[state=inactive]:bg-gray-100 
-          dark:data-[state=inactive]:bg-gray-900 
           data-[state=active]:text-gray-800 
           data-[state=inactive]:text-gray-600 
           data-[state=active]:shadow-md"

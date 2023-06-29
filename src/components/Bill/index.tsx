@@ -41,10 +41,10 @@ const Bill = ({ bill }: BillProps) => {
   }
 
   return (
-    <div className="relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md border-[1px] border-gray-100 bg-white p-2 shadow-sm dark:border-2 dark:border-gray-800 dark:bg-gray-900 md:flex-nowrap">
+    <div className="relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md border-[1px] border-gray-100 bg-white p-2 shadow-sm md:flex-nowrap">
       <div className="flex justify-between gap-4 rounded-md bg-gray-50 p-4">
         <div className="flex flex-col justify-between">
-          <p className="truncate text-xl font-medium text-gray-800 dark:text-white">
+          <p className="truncate text-xl font-medium text-gray-800 ">
             {bill.title}
           </p>
           <div className="flex items-center justify-center gap-4">
