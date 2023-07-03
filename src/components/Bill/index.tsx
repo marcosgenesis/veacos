@@ -4,7 +4,9 @@ import { log } from "next-axiom";
 import {
   RiArrowDownSLine,
   RiArrowUpSLine,
-  RiDeleteBin2Line, RiMoneyDollarCircleFill, RiUserLine
+  RiDeleteBin2Line,
+  RiMoneyDollarCircleFill,
+  RiUserLine,
 } from "react-icons/ri";
 import { useDisclosure } from "../../hooks/useDisclosure";
 import { api, type RouterOutputs } from "../../utils/api";
@@ -41,8 +43,19 @@ const Bill = ({ bill }: BillProps) => {
   }
 
   return (
-    <div className="relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md border-[1px] border-gray-100 bg-white p-2 shadow-sm md:flex-nowrap">
-      <div className="flex justify-between gap-4 rounded-md bg-gray-50 p-4">
+    <motion.div
+      variants={{
+        open: {
+          padding: "1rem",
+        },
+        close: {
+          padding: 0,
+        },
+      }}
+      animate={isOpen ? "open" : "close"}
+      className="relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md border-[1px] border-gray-100 bg-white  shadow-sm md:flex-nowrap"
+    >
+      <motion.div className="flex justify-between gap-4 rounded-md bg-gray-50 p-4">
         <div className="flex flex-col justify-between">
           <p className="truncate text-xl font-medium text-gray-800 ">
             {bill.title}
@@ -78,7 +91,7 @@ const Bill = ({ bill }: BillProps) => {
             {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
           </IconButton>
         </div>
-      </div>
+      </motion.div>
       {isOpen && (
         <motion.div className="relative mt-2 flex flex-wrap gap-4">
           {bill.installment.map((installment) => (
@@ -123,7 +136,7 @@ const Bill = ({ bill }: BillProps) => {
             <p className="text-xs uppercase text-gray-400">Ainda faltam</p>
           </div>
         )} */}
-    </div>
+    </motion.div>
   );
 };
 

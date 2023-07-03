@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: (theme) => ({
+        radial:
+          "radial-gradient(at 77% 38%, rgb(110, 231, 183) 0, transparent 37%), radial-gradient(at 68% 20%,rgb(255, 150, 227) 0, transparent 77%), radial-gradient(at 83% 36%, rgb(243, 232, 255) 0, transparent 33%), radial-gradient(at 18% 27%, transparent, transparent 29%), radial-gradient(at 78% 44%, transparent, transparent 4%), radial-gradient(at 64% 27%, transparent, transparent 44%)",
+      }),
       colors: {
         gray: {
           100: "#eff2f6",

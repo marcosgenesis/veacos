@@ -56,9 +56,11 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button isFullWidth icon={RiAddLine}>
-          Criar dívida
-        </Button>
+        <div className="mx-4">
+          <Button variant="solid" icon={RiAddLine}>
+            Criar dívida
+          </Button>
+        </div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-black/50 backdrop-blur-sm" />

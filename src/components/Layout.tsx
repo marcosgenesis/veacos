@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Head>
         <title>Veacos</title>
       </Head>
-      <div className="flex min-h-screen w-full flex-col md:my-8 md:w-9/12 md:flex-row lg:w-8/12">
+      <div className="w-full">
         <Sidebar />
         <div className="w-full">{children}</div>
       </div>

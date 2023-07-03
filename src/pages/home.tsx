@@ -9,8 +9,12 @@ import Layout from "../components/Layout";
 import { Header } from "../components/Header";
 import CreateBillModal from "../components/CreateBillModal";
 import MobileTabs from "../components/Sidebar/Tabs";
+import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Home: React.FC = () => {
+  const { data } = useSession();
   const {
     data: bills,
     isLoading,
@@ -24,21 +28,55 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <Header>
-        <div className="flex flex-col items-center justify-center mt-4 gap-2 w-full md:w-fit">
-          <CreateBillModal />
-          <div className="md:hidden w-full">
-            <MobileTabs />
-          </div>
-        </div>
-      </Header>
-      <div className="m-4 columns-1 md:columns-2">
-        {isLoading && <p>Carregando...</p>}
+      <span
+        className=" bg-[rgb(240,171,
+        252)] absolute -z-10 h-[calc(100vh_-_80px)] 
+        w-screen bg-radial opacity-20 blur-xl
+      "
+      />
+      <div className="relative flex flex-col items-center justify-center">
+        <div className="flex p-8">
+          <div>
+            <div className="flex items-center gap-2">
+              <p className="text-3xl text-gray-600">Bem vindo novamente </p>
+              <motion.p
+                animate={{ rotateZ: [0, 20, 0], rotateY: [0, 20, 0] }}
+                transition={{ repeat: 1, duration: 0.4, type: "just", repeatType: "reverse" }}
+                className="text-3xl text-gray-600"
+              >
+                👋
+              </motion.p>
+            </div>
 
-        {bills?.length === 0 && (
-          <p className="text-center text-black/30">Nenhuma conta cadastrada</p>
-        )}
-        {isSuccess && bills.map((item) => <Bill key={item.id} bill={item} />)}
+            <div className="flex items-center gap-2">
+              <div>
+                <Image
+                  src={data?.user.image}
+                  width={50}
+                  height={50}
+                  alt="User Profile"
+                  className="rounded-full"
+                />
+              </div>
+              <p className="text-6xl font-medium text-gray-800">
+                {data?.user?.name}
+              </p>
+            </div>
+          </div>
+          {/* <div className="w-80 rounded-md border-[1px] border-gray-50 bg-white p-4 shadow-md">
+            <CreateBillModal />
+          </div> */}
+        </div>
+        <div>
+          {isLoading && <p>Carregando...</p>}
+
+          {bills?.length === 0 && (
+            <p className="text-center text-black/30">
+              Nenhuma conta cadastrada
+            </p>
+          )}
+          {isSuccess && bills.map((item) => <Bill key={item.id} bill={item} />)}
+        </div>
       </div>
     </Layout>
   );
