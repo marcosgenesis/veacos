@@ -28,12 +28,23 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <span
-        className=" bg-[rgb(240,171,
-        252)] absolute -z-10 h-[calc(100vh_-_80px)] 
-        w-screen bg-radial opacity-20 blur-xl
-      "
-      />
+      <div className="absolute -z-10 h-[calc(100vh_-_80px)] w-screen blur-xl">
+        <motion.div
+          className=" relative h-full w-full opacity-80"
+          animate={{
+            background: [
+              "radial-gradient(900px circle at 0% 0%, rgba(253, 164, 175,0.7) 0%, transparent 100%)",
+              "radial-gradient(900px circle at 90% 0%, rgba(253, 164, 175,0.7) 0%, transparent 100%)",
+            ],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+      </div>
+
       <div className="relative flex flex-col items-center justify-center">
         <div className="flex p-8">
           <div>
@@ -41,7 +52,12 @@ const Home: React.FC = () => {
               <p className="text-3xl text-gray-600">Bem vindo novamente </p>
               <motion.p
                 animate={{ rotateZ: [0, 20, 0], rotateY: [0, 20, 0] }}
-                transition={{ repeat: 1, duration: 0.4, type: "just", repeatType: "reverse" }}
+                transition={{
+                  repeat: 1,
+                  duration: 0.4,
+                  type: "just",
+                  repeatType: "reverse",
+                }}
                 className="text-3xl text-gray-600"
               >
                 👋

@@ -3,7 +3,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 import { useRouter } from "next/router";
 
 const MobileTabs: React.FC = () => {
-  const router = useRouter();  
+  const router = useRouter();
   return (
     <Tabs.Root
       className="flex w-full flex-col gap-4"
@@ -26,9 +26,8 @@ const MobileTabs: React.FC = () => {
           data-[state=inactive]:text-gray-600 
             data-[state=active]:shadow-md"
           value="/home"
-          onClick={() => router.push("/home")}
         >
-          Quem me deve
+          Valor
         </Tabs.Trigger>
         <Tabs.Trigger
           className="
@@ -43,7 +42,22 @@ const MobileTabs: React.FC = () => {
           data-[state=inactive]:text-gray-600 
           data-[state=active]:shadow-md"
           value="/my-bills"
-          onClick={() => router.push("/my-bills")}
+        >
+          Descrição
+        </Tabs.Trigger>
+        <Tabs.Trigger
+          className="
+          flex h-[45px] flex-1 
+          cursor-default select-none 
+          items-center justify-center 
+          rounded-lg px-5 text-[15px]
+          font-medium leading-none
+          data-[state=active]:bg-white
+          data-[state=inactive]:bg-gray-100 
+          data-[state=active]:text-gray-800 
+          data-[state=inactive]:text-gray-600 
+          data-[state=active]:shadow-md"
+          value="/my-432"
         >
           Quem eu devo
         </Tabs.Trigger>

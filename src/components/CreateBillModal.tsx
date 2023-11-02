@@ -4,16 +4,16 @@ import { log } from "next-axiom";
 import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { RiAddLine, RiCloseLine, RiSubtractLine } from "react-icons/ri";
+import { RiAddLine, RiCloseLine } from "react-icons/ri";
 import { api } from "../utils/api";
 import Button from "./Button";
-import { Input } from "./Input";
 import * as z from "zod";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { IconButton } from "./IconButton";
 import { toast } from "sonner";
-
+import MobileTabs from "./Sidebar/Tabs";
+import { motion } from "framer-motion";
 interface CreateBillModalProps {
   isPersonal?: boolean;
 }
@@ -30,7 +30,8 @@ type Bill = z.infer<typeof createBillSchema>;
 const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   const { data: sessionData } = useSession();
   const [qtdInstallments, setQtdInstallments] = useState(1);
-  const { register, handleSubmit, formState } = useForm<Bill>({
+  const [valueField, setValueField] = useState("");
+  const { handleSubmit } = useForm<Bill>({
     resolver: zodResolver(createBillSchema),
   });
   const queryClient = useQueryClient();
@@ -57,14 +58,14 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <div className="mx-4">
-          <Button variant="solid" icon={RiAddLine}>
+          <Button isFullWidth variant="solid" icon={RiAddLine}>
             Criar dívida
           </Button>
         </div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-black/50 backdrop-blur-sm" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-8 shadow-lg focus:outline-none">
+        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-4 shadow-lg focus:outline-none">
           <div className="flex w-full items-center justify-between">
             <Dialog.Title className="text-lg font-medium text-gray-900">
               Criar dívida
@@ -75,101 +76,67 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
               </IconButton>
             </Dialog.Close>
           </div>
-          <form onSubmit={handleSubmit(handleCreateSubmit)}>
-            <div className="mt-4">
-              <label
-                htmlFor="title"
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                Título da dívida
-              </label>
-              <Input
-                type="text"
-                id="title"
-                isFullWidth
-                placeholder="10 real da pinga"
-                required
-                error={formState.errors?.title}
-                {...register("title")}
-              />
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="debtor"
-                className="mb-2 block text-sm font-medium text-gray-900 "
-              >
-                {isPersonal ? "Pra quem estou devendo?" : "Nome do veaco"}
-              </label>
-              <Input
-                type="text"
-                id="debtor"
-                placeholder="Fulano"
-                isFullWidth
-                required
-                error={formState.errors?.debtor}
-                {...register("debtor")}
-              />
-            </div>
-            <div className="mb-6 grid gap-6 md:grid-cols-2 ">
-              <div className="mt-4">
-                <label
-                  htmlFor="value"
-                  className="mb-2 block text-sm font-medium text-gray-900 "
-                >
-                  Valor que o veaco de deve
-                </label>
-                <Input
-                  type="text"
-                  id="value"
-                  placeholder="50 mirreis"
-                  required
+          <form
+            onSubmit={handleSubmit(handleCreateSubmit)}
+            className="flex flex-col gap-4"
+          >
+            <MobileTabs />
+            <div className="z-50 bg-white">
+              <p className="mb-4 text-right text-6xl font-semibold">
+                {valueField}
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+                  <Button
+                    key={item}
+                    isFullWidth
+                    onClick={() => setValueField((old) => old.concat(item))}
+                  >
+                    {item}
+                  </Button>
+                ))}
+                <Button
                   isFullWidth
-                  defaultValue={0}
-                  error={formState.errors?.value}
-                  {...register("value", { valueAsNumber: true })}
-                />
-              </div>
-              <div className="mt-4 flex w-full items-center justify-center gap-4 md:w-fit">
-                <label
-                  htmlFor="first_name"
-                  className="mb-2 block text-sm font-medium text-gray-900 "
+                  onClick={() => setValueField((old) => old.concat("."))}
                 >
-                  Em quantas vezes?
-                </label>
-                <div className="flex gap-2 text-center">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setQtdInstallments((old) => (old !== 1 ? old - 1 : old))
-                    }
-                    className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4  "
-                  >
-                    <RiSubtractLine size={20} />
-                    <span className="sr-only">Icon description</span>
-                  </button>
-                  <div className="flex items-center justify-center">
-                    <p className="text-center text-lg">{qtdInstallments}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setQtdInstallments((old) => old + 1)}
-                    className="inline-flex items-center rounded-lg bg-black/90 p-2.5 text-center text-sm font-medium text-white hover:bg-black/80 focus:bg-black/70 focus:outline-none focus:ring-4  "
-                  >
-                    <RiAddLine size={20} />
-                    <span className="sr-only">Icon description</span>
-                  </button>
-                </div>
+                  ,
+                </Button>
+                <Button
+                  isFullWidth
+                  onClick={() => setValueField((old) => old.concat("0"))}
+                >
+                  0
+                </Button>
+                <Button
+                  isFullWidth
+                  onClick={() =>
+                    setValueField((old) => old.substr(0, old.length - 1))
+                  }
+                >
+                  Delete
+                </Button>
               </div>
             </div>
-            <Button
-              type="submit"
-              variant="solid"
-              isFullWidth
-              icon={RiAddLine}
-              isLoading={createBill.isLoading}
+            <motion.div
+              animate={valueField.length > 0 ? "visible" : "hidden"}
+              variants={{
+                hidden: {
+                  y: -60,
+                  display: "none",
+                },
+                visible: {
+                  y: 0,
+                  display: "block",
+                },
+              }}
+              transition={{
+                duration: 0.6,
+              }}
             >
-              Criar Conta
-            </Button>
+              <Button isFullWidth variant="solid">
+                Próximo
+              </Button>
+            </motion.div>
           </form>
         </Dialog.Content>
       </Dialog.Portal>
