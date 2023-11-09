@@ -4,24 +4,31 @@ import { log } from "next-axiom";
 import { useRef, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { Ri24HoursFill, RiAddLine, RiCloseLine } from "react-icons/ri";
+import {
+  Ri24HoursFill,
+  RiAddLine,
+  RiCloseLine,
+  RiMoneyCnyBoxFill,
+  RiMoneyDollarCircleLine,
+  RiMoneyPoundBoxFill,
+  RiMoneyPoundCircleFill,
+} from "react-icons/ri";
 import { api } from "../utils/api";
 import Button from "./Button";
 import * as z from "zod";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { IconButton } from "./IconButton";
 import { toast } from "sonner";
-import MobileTabs from "./Sidebar/Tabs";
-import { motion } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger } from "./Sheet";
 import { Input } from "./Input";
+import SearchOrCreateCategory from "./Category/SearchOrCreateCategory";
 interface CreateBillModalProps {
   isPersonal?: boolean;
 }
 const createBillSchema = z.object({
   title: z.string().min(3, "Este campo precisa conter no mínimo 3 caracteres"),
   debtor: z.string().min(3, "Este campo precisa conter no mínimo 3 caracteres"),
+
   value: z
     .number({ invalid_type_error: "O valor precisa ser um número" })
     .nonnegative("O valor precisa ser positivo")
@@ -32,7 +39,6 @@ type Bill = z.infer<typeof createBillSchema>;
 const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   const { data: sessionData } = useSession();
   const [qtdInstallments, setQtdInstallments] = useState(1);
-  const sheetRef = useRef(null);
   const [valueField, setValueField] = useState("");
   const { handleSubmit } = useForm<Bill>({
     resolver: zodResolver(createBillSchema),
@@ -66,72 +72,24 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
           </Button>
         </div>
       </SheetTrigger>
-      <SheetContent size="sm">
-        <div className="px-4 pt-4">
+      <SheetContent size="md">
+        <div className="relative h-screen">
+        <div className="relative px-4 pt-4">
           <p className="text-lg font-medium">Nova dívida</p>
           <form
             onSubmit={handleSubmit(handleCreateSubmit)}
-            className="flex flex-col gap-4"
+            className="mt-4 flex flex-col gap-4"
           >
             <Input title="Título da dívida" placeholder="teste" />
-            <Input title="Veacos" />
-            <div>
-              <p className="mb-4 text-right text-6xl font-semibold">
-                {valueField}
-              </p>
-              <div className="grid grid-cols-3 gap-2">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                  <Button
-                    key={item}
-                    isFullWidth
-                    onClick={() => setValueField((old) => old.concat(item))}
-                  >
-                    {item}
-                  </Button>
-                ))}
-                <Button
-                  isFullWidth
-                  onClick={() => setValueField((old) => old.concat("."))}
-                >
-                  ,
-                </Button>
-                <Button
-                  isFullWidth
-                  onClick={() => setValueField((old) => old.concat("0"))}
-                >
-                  0
-                </Button>
-                <Button
-                  isFullWidth
-                  onClick={() =>
-                    setValueField((old) => old.substr(0, old.length - 1))
-                  }
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-            <motion.div
-              animate={valueField.length > 0 ? "visible" : "hidden"}
-              variants={{
-                hidden: {
-                  y: -60,
-                  display: "none",
-                },
-                visible: {
-                  y: 0,
-                  display: "block",
-                },
-              }}
-              transition={{
-                duration: 0.6,
-              }}
-            >
-              <Button isFullWidth variant="solid">
-                Próximo
-              </Button>
-            </motion.div>
+            <Input title="Veaco" />
+            <Input title="Valor" placeholder="R$ 0,00" />
+            <SearchOrCreateCategory />
           </form>
+        </div>
+        <div className="absolute bottom-0 w-full p-4 gap-2 flex sm:flex-col md:flex border-t-[1px] border-gray-300">
+          <Button isFullWidth>Cancelar</Button>
+          <Button isFullWidth variant="solid">Registrar dívida</Button>
+        </div>
         </div>
       </SheetContent>
     </Sheet>

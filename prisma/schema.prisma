@@ -42,14 +42,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(uuid())
+    id            String     @id @default(uuid())
     name          String?
-    email         String?   @unique
+    email         String?    @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
     bills         Bill[]
+    Category      Category[]
 }
 
 model VerificationToken {
@@ -81,8 +82,10 @@ model Category {
     name  String
     color String
 
-    bill   Bill   @relation(fields: [billId], references: [id])
+    bill   Bill?  @relation(fields: [billId], references: [id])
+    user   User?  @relation(fields: [userId], references: [id])
     billId String
+    userId String
 
     created_at DateTime @default(now())
     updated_at DateTime @default(now())

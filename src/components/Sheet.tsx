@@ -16,7 +16,7 @@ const styledContent = tv({
       left: "l-0",
     },
     size: {
-      sm: "w-1/4",
+      sm: "w-1/4 md:w-1/3 lg:w-1/2",
       md: "w-1/2",
       lg: "w-3/4",
     },
