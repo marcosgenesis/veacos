@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { log } from "next-axiom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { RiAddLine, RiCloseLine } from "react-icons/ri";
+import { Ri24HoursFill, RiAddLine, RiCloseLine } from "react-icons/ri";
 import { api } from "../utils/api";
 import Button from "./Button";
 import * as z from "zod";
@@ -14,6 +14,8 @@ import { IconButton } from "./IconButton";
 import { toast } from "sonner";
 import MobileTabs from "./Sidebar/Tabs";
 import { motion } from "framer-motion";
+import { Sheet, SheetContent, SheetTrigger } from "./Sheet";
+import { Input } from "./Input";
 interface CreateBillModalProps {
   isPersonal?: boolean;
 }
@@ -30,6 +32,7 @@ type Bill = z.infer<typeof createBillSchema>;
 const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   const { data: sessionData } = useSession();
   const [qtdInstallments, setQtdInstallments] = useState(1);
+  const sheetRef = useRef(null);
   const [valueField, setValueField] = useState("");
   const { handleSubmit } = useForm<Bill>({
     resolver: zodResolver(createBillSchema),
@@ -55,33 +58,24 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   };
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
+    <Sheet>
+      <SheetTrigger asChild>
         <div className="mx-4">
           <Button isFullWidth variant="solid" icon={RiAddLine}>
             Criar dívida
           </Button>
         </div>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-black/50 backdrop-blur-sm" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-4 shadow-lg focus:outline-none">
-          <div className="flex w-full items-center justify-between">
-            <Dialog.Title className="text-lg font-medium text-gray-900">
-              Criar dívida
-            </Dialog.Title>
-            <Dialog.Close asChild>
-              <IconButton>
-                <RiCloseLine />
-              </IconButton>
-            </Dialog.Close>
-          </div>
+      </SheetTrigger>
+      <SheetContent size="sm">
+        <div className="px-4 pt-4">
+          <p className="text-lg font-medium">Nova dívida</p>
           <form
             onSubmit={handleSubmit(handleCreateSubmit)}
             className="flex flex-col gap-4"
           >
-            <MobileTabs />
-            <div className="z-50 bg-white">
+            <Input title="Título da dívida" placeholder="teste" />
+            <Input title="Veacos" />
+            <div>
               <p className="mb-4 text-right text-6xl font-semibold">
                 {valueField}
               </p>
@@ -138,9 +132,9 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
               </Button>
             </motion.div>
           </form>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 
