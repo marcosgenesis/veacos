@@ -3,66 +3,100 @@ import type { ForwardRefRenderFunction } from "react";
 import type { IconType } from "react-icons";
 import type { FieldError } from "react-hook-form";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { type VariantProps, tv } from "tailwind-variants";
 interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
-  leftAddormentIcon?: IconType;
-  // variant?: "solid" | "ghost" | "destructive";
+  leftAdornment?: IconType;
   isFullWidth?: boolean;
   error?: FieldError;
+  title: string;
+  helperText?: string;
 }
 
-const ghostVariant =
-  "py-2 px-4 text-gray-700 border-2 shadow-sm border-gray-300 hover:bg-gray-50 active:bg-gray-100 rounded-lg font-semibold focus:outline-none focus:ring focus:ring-gray-200";
+const inputStyle = tv({
+  base: "flex items-center gap-2 rounded-md border-[1px] border-gray-300 py-1 px-2 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring focus:ring-gray-200 active:bg-gray-100",
+  variants: {
+    isFullWidth: {
+      true: "w-full",
+    },
+    size: {
+      lg: "px-4 py-2",
+      md: "px-3 py-2",
+      sm: "px-2 py-1",
+    },
+  },
+  defaultVariants: {
+    variant: "solid",
+    isFullWidth: true,
+    size: "md",
+  },
+});
 
-const destructiveVariant =
-  "py-2 px-4 text-white bg-red-600 shadow-sm hover:bg-red-700 active:bg-red-700 rounded-lg font-semibold focus:outline-none focus:ring focus:ring-red-200";
+const titleStyle = tv({
+  base: "text-gray-700 font-medium",
+  variants: {
+    size: {
+      lg: "text-md",
+      md: "text-sm",
+      sm: "text-xs",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
 
-const solidVariant =
-  "rounded-lg bg-black px-4 py-2 font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300 active:bg-gray-800";
+const helperTextStyle = tv({
+  base: "text-gray-500",
+  variants: {
+    size: {
+      lg: "text-sm",
+      md: "text-sm",
+      sm: "text-xs",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
 
-function getVariant(variant: string) {
-  switch (variant) {
-    case "ghost":
-      return ghostVariant;
-      break;
-    case "solid":
-      return solidVariant;
-      break;
-    case "destructive":
-      return destructiveVariant;
-      break;
-    default:
-      return ghostVariant;
-      break;
-  }
-}
+type SheetContentVariants = VariantProps<typeof inputStyle> &
+  VariantProps<typeof titleStyle> &
+  InputProps;
 
-const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { leftAddormentIcon, isFullWidth, error, ...props },
+const InputBase: ForwardRefRenderFunction<
+  HTMLInputElement,
+  SheetContentVariants
+> = (
+  { leftAdornment, title, helperText, isFullWidth, size, error, ...props },
   ref
 ) => {
-  const Icon = leftAddormentIcon;
+  const Icon = leftAdornment;
 
   return (
-    <>
-      <input
-        ref={ref}
-        type="text"
-        className={`min-w-xs    ${
-          isFullWidth ? "w-full" : "w-50"
-        } h-11 rounded-lg border-2 px-4 py-4 font-normal shadow-sm placeholder:font-normal ${
-          !!error
-            ? "focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300"
-            : "focus:border-gray-400 focus:outline-none focus:ring focus:ring-gray-300"
-        }`}
-        {...props}
-      />
+    <div>
+      <p className={titleStyle({ size })}>{title}</p>
+      <div
+        className={inputStyle({
+          isFullWidth,
+          size,
+        })}
+      >
+        {leftAdornment && <Icon />}
+        <input
+          ref={ref}
+          type="text"
+          {...props}
+          className="w-full bg-transparent outline-none"
+        />
+      </div>
+      {helperText && <p className={helperTextStyle({ size })}>{helperText}</p>}
       {error && (
-        <div className="flex items-center gap-2 text-red-500  text-sm">
+        <div className="flex items-center gap-2 text-sm  text-red-500">
           <RiErrorWarningLine />
           <p>{error.message}</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
