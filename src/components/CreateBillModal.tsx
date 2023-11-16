@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { log } from "next-axiom";
 import { useRef, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   Ri24HoursFill,
   RiAddLine,
@@ -28,7 +28,21 @@ interface CreateBillModalProps {
 const createBillSchema = z.object({
   title: z.string().min(3, "Este campo precisa conter no mínimo 3 caracteres"),
   debtor: z.string().min(3, "Este campo precisa conter no mínimo 3 caracteres"),
-
+  category: z.enum(
+    [
+      "dailyExpenses",
+      "housing",
+      "healthcare",
+      "education",
+      "transportation",
+      "leisureAndEntertainment",
+      "savingsAndInvestments",
+      "debts",
+      "insurance",
+      "clothingAndAccessories",
+    ],
+    { invalid_enum_error: "Categoria inválida" }
+  ),
   value: z
     .number({ invalid_type_error: "O valor precisa ser um número" })
     .nonnegative("O valor precisa ser positivo")
@@ -40,7 +54,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
   const { data: sessionData } = useSession();
   const [qtdInstallments, setQtdInstallments] = useState(1);
   const [valueField, setValueField] = useState("");
-  const { handleSubmit } = useForm<Bill>({
+  const { control, handleSubmit } = useForm<Bill>({
     resolver: zodResolver(createBillSchema),
   });
   const queryClient = useQueryClient();
@@ -74,22 +88,38 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
       </SheetTrigger>
       <SheetContent size="md">
         <div className="relative h-screen">
-        <div className="relative px-4 pt-4">
-          <p className="text-lg font-medium">Nova dívida</p>
-          <form
-            onSubmit={handleSubmit(handleCreateSubmit)}
-            className="mt-4 flex flex-col gap-4"
-          >
-            <Input title="Título da dívida" placeholder="teste" />
-            <Input title="Veaco" />
-            <Input title="Valor" placeholder="R$ 0,00" />
-            <SearchOrCreateCategory />
-          </form>
-        </div>
-        <div className="absolute bottom-0 w-full p-4 gap-2 flex sm:flex-col md:flex border-t-[1px] border-gray-300">
-          <Button isFullWidth>Cancelar</Button>
-          <Button isFullWidth variant="solid">Registrar dívida</Button>
-        </div>
+          <div className="relative px-4 pt-4">
+            <p className="text-lg font-medium">Nova dívida</p>
+            <form
+              onSubmit={handleSubmit(handleCreateSubmit)}
+              className="mt-4 flex flex-col gap-4"
+            >
+              <Input title="Título da dívida" placeholder="teste" />
+              <Input title="Veaco" />
+              <Controller
+                name="valor"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                  return (
+                    <Input
+                      title="Valor"
+                      placeholder="R$ 0,00"
+                      {...field}
+                      value={field.value}
+                    />
+                  );
+                }}
+              />
+              <SearchOrCreateCategory />
+            </form>
+          </div>
+          <div className="absolute bottom-0 flex w-full gap-2 border-t-[1px] border-gray-300 p-4 sm:flex-col md:flex">
+            <Button isFullWidth>Cancelar</Button>
+            <Button isFullWidth variant="solid">
+              Registrar dívida
+            </Button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
