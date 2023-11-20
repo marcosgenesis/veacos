@@ -28,18 +28,7 @@ interface CreateBillModalProps {
 const createBillSchema = z.object({
   title: z.string().min(3, "Este campo precisa conter no mínimo 3 caracteres"),
   debtor: z.string().min(3, "Este campo precisa conter no mínimo 3 caracteres"),
-  category: z.enum([
-    "dailyExpenses",
-    "housing",
-    "healthcare",
-    "education",
-    "transportation",
-    "leisureAndEntertainment",
-    "savingsAndInvestments",
-    "debts",
-    "insurance",
-    "clothingAndAccessories",
-  ]),
+  category: z.string(),
   value: z
     .string()
     .transform((value) => {
@@ -51,9 +40,11 @@ const createBillSchema = z.object({
       },
       { message: "Valor inválido" }
     ),
-  installments: z.string({
-    required_error: "Este campo é obrigatório",
-  }).min(1, "Este campo precisa conter no mínimo 1 valor")
+  installments: z
+    .string({
+      required_error: "Este campo é obrigatório",
+    })
+    .min(1, "Este campo precisa conter no mínimo 1 valor"),
 });
 type Bill = z.infer<typeof createBillSchema>;
 
@@ -71,15 +62,16 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
     try {
       console.log({ data });
 
-      // await createBill.mutateAsync({
-      //   debtor: data.debtor,
-      //   qtdInstallments,
-      //   value: data.value,
-      //   user: sessionData?.user?.email ?? "",
-      //   title: data.title,
-      //   isPersonal: isPersonal,
-      // });
-      // await queryClient.invalidateQueries();
+      await createBill.mutateAsync({
+        debtor: data.debtor,
+        qtdInstallments,
+        value: data.value,
+        user: sessionData?.user?.email ?? "",
+        title: data.title,
+        isPersonal: isPersonal,
+        categoryId: data.category,
+      });
+      await queryClient.invalidateQueries();
       toast.success("Dívida criada");
     } catch (error) {
       log.error("Error: create personal bill", { error, data });
@@ -180,6 +172,7 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
               variant="solid"
               type="submit"
               form="create-bill-form"
+              isLoading={createBill.isLoading}
             >
               Registrar dívida
             </Button>
