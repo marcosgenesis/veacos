@@ -2,27 +2,27 @@ import React from "react";
 import * as Select from "@radix-ui/react-select";
 import { RiArrowDownSLine, RiArrowUpSLine, RiCheckLine } from "react-icons/ri";
 import { Controller, useFormContext } from "react-hook-form";
+import { api } from "../../utils/api";
 
 type Option = {
   label: string;
   value: string;
 };
 
-const options: Option[] = [
-  { label: "Despesas Diárias", value: "dailyExpenses" },
-  { label: "Moradia", value: "housing" },
-  { label: "Saúde", value: "healthcare" },
-  { label: "Educação", value: "education" },
-  { label: "Transporte", value: "transportation" },
-  { label: "Lazer e Entretenimento", value: "leisureAndEntertainment" },
-  { label: "Economias e Investimentos", value: "savingsAndInvestments" },
-  { label: "Dívidas", value: "debts" },
-  { label: "Seguros", value: "insurance" },
-  { label: "Roupas e Acessórios", value: "clothingAndAccessories" },
-];
+const options = {
+  dailyExpenses: "Despesas Diárias",
+  housing: "Moradia",
+  healthcare: "Saúde",
+  education: "Educação",
+  transportation: "Transporte",
+  leisureAndEntertainment: "Lazer e Entretenimento",
+  savingsAndInvestments: "Economias e Investimentos",
+};
 
 const SearchOrCreateCategory = (props: Select.SelectProps) => {
-  const { control, getValues } = useFormContext();
+  const { control,formState } = useFormContext();
+  const { data: categories } = api.category.getAllGeneral.useQuery();
+console.log({formState:formState.errors});
 
   return (
     <div className="flex flex-col">
@@ -51,9 +51,9 @@ const SearchOrCreateCategory = (props: Select.SelectProps) => {
                   </Select.ScrollUpButton>
                   <Select.Viewport className="p-1">
                     <Select.Group>
-                      {options.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
+                      {categories?.map((option) => (
+                        <SelectItem key={option.id} value={option.id}>
+                          {options[option.name]}
                         </SelectItem>
                       ))}
                     </Select.Group>
