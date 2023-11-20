@@ -73,7 +73,7 @@ const InputBase: ForwardRefRenderFunction<
   const Icon = leftAdornment;
 
   return (
-    <div>
+    <div className={isFullWidth ? "w-full" : "w-auto"}>
       <p className={titleStyle({ size })}>{title}</p>
       <div
         className={inputStyle({
