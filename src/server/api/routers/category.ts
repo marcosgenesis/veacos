@@ -20,4 +20,8 @@ export const categoryRouter = createTRPCRouter({
       });
       return category;
     }),
+  getAllGeneral: protectedProcedure
+    .query(async ({ ctx }) => {
+      return ctx.prisma.category.findMany({ where: { source: 'GENERAL' } });
+    }),
 });

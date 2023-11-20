@@ -13,6 +13,7 @@ export const billRouter = createTRPCRouter({
         value: z.number().nonnegative().gte(1),
         qtdInstallments: z.number().nonnegative().int(),
         isPersonal: z.boolean().default(false).optional(),
+        categoryId: z.string()
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -27,6 +28,9 @@ export const billRouter = createTRPCRouter({
             userId: findUser.id,
             title: input.title,
             isPersonal: input.isPersonal ?? false,
+            Category: {
+              connect: { id: input.categoryId }
+            }
           },
         });
 
