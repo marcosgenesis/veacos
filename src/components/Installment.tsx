@@ -42,28 +42,32 @@ const Installment: React.FC<InstallmentProps> = ({ installment }) => {
   return (
     <motion.div
       key={installment.id}
-      className="relative flex flex-grow cursor-pointer flex-col items-center rounded-lg p-4 hover:bg-gray-50   "
+      className="relative flex flex-grow cursor-pointer items-center justify-between rounded-lg p-4 hover:bg-gray-50   "
       onClick={async () => {
         !installment.payed && setIsConfettiActive(true);
         return handlePayInstallment(installment.id, !installment.payed);
       }}
     >
-      <div className="flex items-center justify-center">
-        {installment.payed ? (
-          <RiCheckLine className="fill-green-600" />
-        ) : (
-          <RiErrorWarningLine className="fill-red-400" />
-        )}
+      <div className="flex justify-between w-full items-center">
+        <div className="flex gap-2 ">
+          <div className="flex items-center justify-center">
+            {installment.payed ? (
+              <RiCheckLine className="fill-green-600" />
+            ) : (
+              <RiErrorWarningLine className="fill-red-400" />
+            )}
+          </div>
+          <p className="text-gray-900 ">
+            {installment.value.toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </p>
+        </div>
+        <p className="text-xs text-gray-400">
+          {`${installment.date.toLocaleDateString("pt-br")}`}
+        </p>
       </div>
-      <p className="text-gray-900 ">
-        {installment.value.toLocaleString("pt-br", {
-          style: "currency",
-          currency: "BRL",
-        })}
-      </p>
-      <p className="text-xs text-gray-400">
-        {`${installment.date.toLocaleDateString("pt-br")}`}
-      </p>
 
       <Confetti active={isConfettiActive} config={config} />
     </motion.div>
