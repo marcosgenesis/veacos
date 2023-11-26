@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { Sheet, SheetContent, SheetTrigger } from "./Sheet";
 import { Input } from "./Input";
 import SearchOrCreateCategory from "./Category/SearchOrCreateCategory";
+import { IconButton } from "./IconButton";
 interface CreateBillModalProps {
   isPersonal?: boolean;
 }
@@ -82,9 +83,9 @@ const CreateBillModal = ({ isPersonal = false }: CreateBillModalProps) => {
     <Sheet>
       <SheetTrigger asChild>
         <div className="mx-4">
-          <Button isFullWidth variant="solid" icon={RiAddLine}>
-            Criar dívida
-          </Button>
+          <IconButton variant="secundary-gray" icon={RiAddLine}>
+            <RiAddLine/>
+          </IconButton>
         </div>
       </SheetTrigger>
       <SheetContent size="md">

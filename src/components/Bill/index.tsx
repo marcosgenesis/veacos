@@ -12,6 +12,7 @@ import { useDisclosure } from "../../hooks/useDisclosure";
 import { api, type RouterOutputs } from "../../utils/api";
 import { IconButton } from "../IconButton";
 import Installment from "../Installment";
+import BankNoteIcon from "../icons/BankNote";
 
 type Bill = RouterOutputs["bill"]["getAllFromUser"];
 
@@ -53,9 +54,16 @@ const Bill = ({ bill }: BillProps) => {
         },
       }}
       animate={isOpen ? "open" : "close"}
-      className="relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md border-[1px] border-gray-100 bg-white  shadow-sm md:flex-nowrap"
+      data-open={isOpen}
+      className={`relative mb-4 flex break-inside-avoid flex-col flex-wrap justify-between gap-2 rounded-md bg-white shadow-sm  data-[open=true]:border-[1px] md:flex-nowrap`}
     >
-      <motion.div className="flex justify-between gap-4 rounded-md bg-gray-50 p-4">
+      <motion.div
+        className={`flex justify-between gap-4 rounded-md ${
+          isOpen
+            ? "border-[1px] border-gray-100 bg-gray-50"
+            : "border-[1px]  border-gray-100 bg-white"
+        } p-4`}
+      >
         <div className="flex flex-col justify-between">
           <p className="truncate text-xl font-medium text-gray-800 ">
             {bill.title}
@@ -68,7 +76,7 @@ const Bill = ({ bill }: BillProps) => {
               </p>
             </div>
             <div className="flex items-center justify-center gap-2 rounded-full bg-red-100 px-2 py-1">
-              <RiMoneyDollarCircleFill className="fill-red-500" />
+              <BankNoteIcon size={16} stroke="stroke-red-600"/>
               <p className="text-sm  font-medium text-red-800">
                 {bill.total.toLocaleString("pt-br", {
                   style: "currency",
@@ -85,7 +93,7 @@ const Bill = ({ bill }: BillProps) => {
             onClick={() => handleDeleteBill(bill.id)}
             isLoading={deleteBill.isLoading}
           >
-            <RiDeleteBin2Line />
+            <RiDeleteBin2Line/>
           </IconButton>
           <IconButton onClick={() => toggle()}>
             {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}

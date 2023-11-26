@@ -13,13 +13,13 @@ interface NavItemProps {
 }
 
 const navItem = tv({
-  base: "flex h-11 w-full items-center gap-3 rounded-lg px-4 text-lg font-medium text-gray-600 hover:bg-gray-100",
+  base: "flex h-11 w-full items-center gap-3 rounded-full px-4 text-lg font-medium text-gray-600 hover:bg-gray-100",
   slots: {
     iconStyle: "fill-gray-700",
   },
   variants: {
     active: {
-      true: "bg-gray-50 text-gray-900",
+      true: "bg-gray-50 text-gray-900 border-[1px] border-gray-200",
     },
   },
 });

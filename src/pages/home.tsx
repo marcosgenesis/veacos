@@ -9,6 +9,7 @@ import Layout from "../components/Layout";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Sidebar from "../components/Sidebar";
 
 const Home: React.FC = () => {
   const { data } = useSession();
@@ -25,13 +26,13 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <div className="absolute -z-10 h-[calc(100vh_-_80px)] w-screen blur-xl">
+      <div className="fixed top-0 -z-10 h-[calc(100vh_-_80px)] w-[100vw] blur-xl">
         <motion.div
-          className=" relative h-full w-full opacity-80"
+          className="relative h-full w-full opacity-60"
           animate={{
             background: [
-              "radial-gradient(900px circle at 0% 0%, rgba(253, 164, 175,0.7) 0%, transparent 100%)",
-              "radial-gradient(900px circle at 90% 0%, rgba(253, 164, 175,0.7) 0%, transparent 100%)",
+              "radial-gradient(900px circle at 0% 0%, rgba(164, 253, 219, 0.7) 0%, transparent 100%)",
+              "radial-gradient(900px circle at 90% 0%, rgba(164, 253, 219, 0.7) 0%, transparent 100%)",
             ],
           }}
           transition={{
@@ -41,54 +42,57 @@ const Home: React.FC = () => {
           }}
         />
       </div>
-
-      <div className="relative flex flex-col items-center justify-center">
-        <div className="flex p-8">
-          <div>
-            <div className="flex items-center gap-2">
-              <p className="text-3xl text-gray-600">Bem vindo novamente </p>
-              <motion.p
-                animate={{ rotateZ: [0, 20, 0], rotateY: [0, 20, 0] }}
-                transition={{
-                  repeat: 1,
-                  duration: 0.4,
-                  type: "just",
-                  repeatType: "reverse",
-                }}
-                className="text-3xl text-gray-600"
-              >
-                👋
-              </motion.p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div>
-                <Image
-                  src={data?.user.image}
-                  width={50}
-                  height={50}
-                  alt="User Profile"
-                  className="rounded-full"
-                />
+      <div className="relative flex items-start justify-center gap-4">
+        <Sidebar />
+        <div className="flex flex-col">
+          <div className="flex p-8">
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-3xl text-gray-600">Bem vindo novamente </p>
+                <motion.p
+                  animate={{ rotateZ: [0, 20, 0], rotateY: [0, 20, 0] }}
+                  transition={{
+                    repeat: 1,
+                    duration: 0.4,
+                    type: "just",
+                    repeatType: "reverse",
+                  }}
+                  className="text-3xl text-gray-600"
+                >
+                  👋
+                </motion.p>
               </div>
-              <p className="text-6xl font-medium text-gray-800">
-                {data?.user?.name}
-              </p>
+
+              <div className="flex items-center gap-2">
+                <div>
+                  <Image
+                    src={data?.user.image}
+                    width={50}
+                    height={50}
+                    alt="User Profile"
+                    className="rounded-full"
+                  />
+                </div>
+                <p className="text-6xl font-medium text-gray-800">
+                  {data?.user?.name}
+                </p>
+              </div>
             </div>
-          </div>
-          {/* <div className="w-80 rounded-md border-[1px] border-gray-50 bg-white p-4 shadow-md">
+            {/* <div className="w-80 rounded-md border-[1px] border-gray-50 bg-white p-4 shadow-md">
             <CreateBillModal />
           </div> */}
-        </div>
-        <div>
-          {isLoading && <p>Carregando...</p>}
+          </div>
+          <div>
+            {isLoading && <p>Carregando...</p>}
 
-          {bills?.length === 0 && (
-            <p className="text-center text-black/30">
-              Nenhuma conta cadastrada
-            </p>
-          )}
-          {isSuccess && bills.map((item) => <Bill key={item.id} bill={item} />)}
+            {bills?.length === 0 && (
+              <p className="text-center text-black/30">
+                Nenhuma conta cadastrada
+              </p>
+            )}
+            {isSuccess &&
+              bills.map((item) => <Bill key={item.id} bill={item} />)}
+          </div>
         </div>
       </div>
     </Layout>

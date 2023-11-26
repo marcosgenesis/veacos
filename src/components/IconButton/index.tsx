@@ -10,10 +10,12 @@ const button = cva(
     variants: {
       variant: {
         primary: [
-          "bg-gray-900",
-          "text-white",
-          "hover:bg-gray-800",
-          "focus:ring-gray-200",
+          "bg-teal-100",
+          "border-[1px]",
+          "border-teal-200",	
+          "text-teal-600",
+          "hover:bg-teal-200",
+          "focus:ring-teal-200",
         ],
         "secundary-gray": [
           "bg-transparent",
@@ -40,6 +42,7 @@ const button = cva(
         ],
       },
       size: {
+        xs: ["w-6", "h-6", 'p-0'],
         sm: ["w-9", "h-9"],
         md: ["w-10", "h-10"],
         lg: ["w-11", "h-11"],
